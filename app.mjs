@@ -10,6 +10,8 @@ import firebase from 'firebase';
 
 import config from './config.js';
 
+import { getRouter } from './routes/api.mjs';
+
 const app = express();
 
 app.use(logger('dev'));
@@ -19,7 +21,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(path.resolve(), 'frontend/')));
 
 // Init firebase
-firebase.initializeApp(config);
+const ref = firebase.initializeApp(config);
+
+// Router
+app.use('/api/', getRouter(ref));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
