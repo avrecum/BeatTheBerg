@@ -7,6 +7,7 @@
     <link rel="icon" href="./favicon/favicon.ico">
     <script src="./js/aframe.min.js"></script>
     <script src='./js/aframe-ar.js'></script>
+    <script src='./js/main.js'></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet">
@@ -38,7 +39,18 @@
           var markerId = marker.id;
         });
       }
-	});
+  });
+  AFRAME.registerComponent('checkstate',{
+    init: function(){
+      let scene = this.el;
+      scene.addEventListener("loaded", function(){
+        window.document.getElementById("loadingSpinner").style.display="none";
+        window.document.getElementById("game").style.display="contents";
+        window.document.getElementById("messageBox").style.display="inline";
+        document.getElementById("logo").style.display="inline";
+      });
+    }
+  });
     </script>
     <title>Beat the Berg!- The Game</title>
   </head>
@@ -48,14 +60,17 @@
     </noscript>
 
     <!-- add some info at the top of the page -->
-	  <a href="./index.html"><img class="topleft" src="./logos/logo1.png"></a>
+	  <a href="./index.html" id="logo"><img class="topleft" src="./logos/logo1.png"></a>
 	
-    <div class="topmiddle">
+    <div class="topmiddle" id="messageBox">
       <p>Finde den nächsten Marker und scanne ihn, um den nächsten Hinweis zu erhalten!</p>
     </div>
 
+    <div class="lds-ring" id="loadingSpinner"><div></div><div></div><div></div><div></div></div>
+
+    <div id="game">
     <!-- Define your 3d scene and enabled ar.js -->
-    <a-scene embedded vr-mode-ui="enabled: false" arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 4x4;'>
+    <a-scene embedded vr-mode-ui="enabled: false" arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 4x4;' checkstate>
       <!-- Define a static camera -->
       <a-camera-static></a-camera-static>
       <a-assets>
@@ -337,7 +352,8 @@
         </a-entity>
         <!-- <a-entity gltf-model="#tree"></a-entity> -->
       </a-marker>
-
     </a-scene>
+    
+  </div>
   </body>
 </html>
