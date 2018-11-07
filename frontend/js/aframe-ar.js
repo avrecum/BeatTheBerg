@@ -6686,28 +6686,6 @@ ARjs.SessionDebugUI = function(arSession, tangoPointCloud){
 	// domElement.innerHTML = 'AR.js Session Debug'
 
 	//////////////////////////////////////////////////////////////////////////////
-	//		current-tracking-backend
-	//////////////////////////////////////////////////////////////////////////////
-
-	var domElement = document.createElement('span')
-	domElement.style.display = 'block'
-	this.domElement.appendChild(domElement)
-	domElement.innerHTML = '<b>trackingBackend</b> : ' +trackingBackend
-	
-	//////////////////////////////////////////////////////////////////////////////
-	//		augmented-websites
-	//////////////////////////////////////////////////////////////////////////////
-
-	if( ARjs.SessionDebugUI.AugmentedWebsiteURL ){
-		var domElement = document.createElement('a')
-		domElement.innerHTML = 'Share on augmented-websites'
-		domElement.style.display = 'block'
-		// domElement.setAttribute('target', '_blank')
-		domElement.href = ARjs.SessionDebugUI.AugmentedWebsiteURL + '?'+location.href
-		this.domElement.appendChild(domElement)						
-	}
-
-	//////////////////////////////////////////////////////////////////////////////
 	//		toggle-point-cloud
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -6774,14 +6752,6 @@ ARjs.AnchorDebugUI = function(arAnchor){
 	// this.domElement.appendChild(domElement)
 	// domElement.innerHTML = 'Anchor Marker Debug'
 
-	//////////////////////////////////////////////////////////////////////////////
-	//		current-tracking-backend
-	//////////////////////////////////////////////////////////////////////////////
-
-	var domElement = document.createElement('span')
-	domElement.style.display = 'block'
-	this.domElement.appendChild(domElement)
-	domElement.innerHTML = '<b>markersAreaEnabled</b> :' +arAnchor.parameters.markersAreaEnabled
 
 	//////////////////////////////////////////////////////////////////////////////
 	//		toggle-marker-helper
@@ -8318,24 +8288,7 @@ AFRAME.registerComponent('arjs-anchor', {
 
 			// it is now considered isReady
 			_this.isReady = true
-
-			//////////////////////////////////////////////////////////////////////////////
-			//		honor .debugUIEnabled
-			//////////////////////////////////////////////////////////////////////////////
-			if( arjsSystem.data.debugUIEnabled ){
-				// get or create containerElement
-				var containerElement = document.querySelector('#arjsDebugUIContainer')
-				if( containerElement === null ){
-					containerElement = document.createElement('div')
-					containerElement.id = 'arjsDebugUIContainer'
-					containerElement.setAttribute('style', 'position: fixed; bottom: 10px; width:100%; text-align: center; z-index: 1; color: grey;')
-					document.body.appendChild(containerElement)
-				}
-				// create anchorDebugUI
-				var anchorDebugUI = new ARjs.AnchorDebugUI(arAnchor)
-				containerElement.appendChild(anchorDebugUI.domElement)
-			}
-		}, 1000/60)
+		}, 200);
 	},
 	remove : function(){
 	},
