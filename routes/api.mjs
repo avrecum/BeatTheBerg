@@ -1,11 +1,6 @@
 import express from 'express';
 const router = express.Router();
 
-// const env = process.env.NODE_ENV || 'dev';
-// const rootURL =
-//   env === 'dev' ? 'http://localhost:5000' : 'https://maintainerswanted.com';
-// const callbackUrl = rootURL + '/api/auth/github/callback';
-
 let database;
 let leaderboardDB;
 let userDB;
@@ -22,12 +17,11 @@ export const getRouter = (firebaseRef) => {
 /**
  * GET Leaderboard
  */
-router.get('/leaderboard', (req, res, next) => {
+router.get('/leaderboard', async (req, res, next) => {
 
   const leaderboard = [];
 
-  leaderboardDB.orderByChild("time").limitToLast(20).on('value', getData, errData);
-
+  
   const getData = (data) => {
     if(data.val()) {
       let tmp = data.val();
@@ -36,17 +30,17 @@ router.get('/leaderboard', (req, res, next) => {
       res.json({ status: 500, err: "No data! " });
     }
   }
-
+  
   const errData = (error) => {
     console.error('Something went wrong.');
     console.error(error);
   }
-
-  // projectRef.on('value', getData, errData);
+  
+  let dataList = await leaderboardDB.on('value', getData, errData);
 
   // Return project if availible
   if(dataList)
-    res.json({ status: 200, data: leaderboard });
+    res.json({ status: 200, data: leaderboard[0] });
   else
     res.json({ status: 500, err: "Error while getting leaderboard" });
 
@@ -57,16 +51,12 @@ router.get('/leaderboard', (req, res, next) => {
  */
 router.post('/leaderboard', (req, res, next) => {
 
-  console.log(userDB);
-
   let user = {
       name: 'Quentin',
       time: 2000
   };
 
-  console.log(user);
-
-  let dbUser = userDB.push(user, finished);
+  let dbUser = leaderboardDB.push(user, (a) => console.log(a));
   console.log('Data: Firebase generated key: ' + dbUser.key);
 
   if(dbUser)
