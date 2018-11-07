@@ -6,6 +6,7 @@ import logger from 'morgan';
 import debug from 'debug';
 debug('beattheberg:server');
 import http from 'http';
+import firebase from 'firebase';
 
 import config from './config.js';
 
