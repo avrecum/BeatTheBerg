@@ -25,19 +25,34 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <title>Beat the Berg! - Instructions</title>
+    <title>Beat the Berg!- The Game</title>
   </head>
   <body>
-	<article>
-		<img class="logo" src="./logos/logo1.png">
-		<h1>Willkommen bei Beat the Berg!</h1>
-		<h2>Beat the Berg ist die beste interaktive Augmented-Reality Schnitzeljagd, die ihr je gesehen habt!</h2>
-		<h3>So funktioniert es: </h3>
-		<p>		Auf dem ganzen Campus sind Marker verteilt, die es in der richtigen Reihenfolge zu finden gilt.</br>
-				Wenn ihr den Marker anvisiert, erscheint der nächste Hinweis.</br>
-				Damit die Schnitzeljagd funktionieren kann, müsst ihr der Webseite den Zugriff auf eure Kamera erlauben.</br>
-				Der erste Marker wartet schon auf dich! Trage deinen Namen ein und drücke auf Start!</br>
-		</p>
-	</article>
+    <noscript>
+      <strong>Beat the Berg! funktioniert nur mit JavaScript. Bitte erlaube JavaScript um fortzufahren.</strong>
+    </noscript>
+
+    <!-- add some info at the top of the page -->
+	  <a href="/"><img class="topleft" src="./logos/logo1.png"></a>
+	
+    <div class="topmiddle">
+      <p>Finde den nächsten Marker und scanne ihn!</p>
+    </div>
+
+    <!-- Define your 3d scene and enabled ar.js -->
+    <a-scene embedded arjs='trackingMethod: best;'>
+
+      <a-marker type='barcode' value='642' id='marker-barcode-0'>
+          <a-box position='0 0.5 0' material='opacity: 0.5; side: double;color:red;'>
+            <a-torus-knot radius='0.26' radius-tubular='0.05'>
+              <a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite"></a-animation>
+            </a-torus-knot>
+          </a-box>
+      </a-marker>
+
+      <!-- Define a static camera -->
+      <a-camera-static/>
+
+    </a-scene>
   </body>
 </html>

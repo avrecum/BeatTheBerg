@@ -28,6 +28,29 @@
     <title>Beat the Berg! - Instructions</title>
   </head>
   <body>
+    <noscript>
+      <strong>Beat the Berg! funktioniert nur mit JavaScript. Bitte erlaube JavaScript um fortzufahren.</strong>
+    </noscript>
+
+    <!-- add some info at the top of the page -->
+	<a><img class="topleft" src="https://raw.githubusercontent.com/Hansenberg/BeatTheBerg/master/logos/logo1.png"></a>
+	
+    <div class="topmiddle">
+      <p>Finde den nächsten Marker und scanne ihn!</p>
+    </div>
+
+    <a-scene embedded arjs='patternRatio: 0.9; sourceType: webcam'>
+
+      <!-- define the object which gonna be put on this marker  -->
+      <a-marker type='pattern' url='pattern-arjs.patt'> 
+        <a-box position='0 0.5 0' material='opacity: 0.5; side: double; color:purple'>
+          <a-torus-knot radius='0.26' radius-tubular='0.05'>
+            <a-animation attribute="rotation" to="360 0 0" dur="3000" easing='linear' repeat="indefinite"></a-animation>
+          </a-torus-knot>
+        </a-box>
+      </a-marker>
+      <a-entity camera></a-entity>
+  </a-scene>
 	<article>
 		<img class="logo" src="./logos/logo1.png">
 		<h1>Willkommen bei Beat the Berg!</h1>
