@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node --experimental-modules app.mjs",
+    "dev": "nodemon --experimental-modules app.mjs"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

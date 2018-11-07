@@ -1,19 +1,19 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var debug = require('debug')('beattheberg:server');
-var http = require('http');
+import createError from 'http-errors';
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import debug from 'debug';
+debug('beattheberg:server');
+import http from 'http';
 
-var app = express();
-
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'frontend/')));
+app.use(express.static(path.join(path.resolve(), 'frontend/')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -35,7 +35,7 @@ app.use(function(err, req, res, next) {
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '5000');
+const port = process.env.PORT || '5000';
 app.set('port', port);
 
 
@@ -43,7 +43,7 @@ app.set('port', port);
  * Create HTTP server, listen on ports
  */
 
-var server = http.createServer(app);
+const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
@@ -56,7 +56,7 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
+  let bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
@@ -79,8 +79,8 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
+  let addr = server.address();
+  let bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
