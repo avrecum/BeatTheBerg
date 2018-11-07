@@ -7,6 +7,8 @@ import debug from 'debug';
 debug('beattheberg:server');
 import http from 'http';
 
+import config from './config.js';
+
 const app = express();
 
 app.use(logger('dev'));
@@ -14,6 +16,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(path.resolve(), 'frontend/')));
+
+// Init firebase
+firebase.initializeApp(config);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
