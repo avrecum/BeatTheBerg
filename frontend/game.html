@@ -25,6 +25,23 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <script>
+      	AFRAME.registerComponent('registerevents', {
+		init: function () {
+			var marker = this.el;
+			marker.addEventListener('markerFound', function() {
+				var markerId = marker.id;
+				console.log('markerFound', markerId);
+				// TODO: Add your own code here to react to the marker being found.
+			});
+			marker.addEventListener('markerLost', function() {
+        var markerId = marker.id;
+				console.log('markerLost', markerId);
+				// TODO: Add your own code here to react to the marker being lost.
+			});
+		}
+	});
+    </script>
     <title>Beat the Berg!- The Game</title>
   </head>
   <body>
@@ -45,7 +62,7 @@
         <img id="asset-0" src="./milestone-images/4962.png">
       </a-assets>
         
-      <a-marker type='barcode' value='642' id='marker-barcode-0'>
+      <a-marker type='barcode' value='642' id='marker-barcode-0' registerevents>
         <a-image src="#asset-0"></a-image>
       </a-marker>
 
