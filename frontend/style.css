@@ -15,6 +15,11 @@ article {
 h1, h2{
 	text-align: center;
 }
+
+p {
+	line-height: 125%;
+}
+
 .logo {
 	display: block;
     margin-left: auto;
@@ -42,4 +47,9 @@ h1, h2{
 	text-align: center;
 	z-index: 1;
 	background-color: #fff;
+}
+
+button.btn.btn-primary{
+	background-color: #2E4A83;
+	border-color: #2E4A83;
 }
