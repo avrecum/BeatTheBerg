@@ -43,10 +43,12 @@
     <a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 4x4;'>
       <a-assets>
         <img id="asset-0" src="./milestone-images/4962.png">
+        <!-- <a-asset-item id="tree" src="./milestone-images/rugby_ball.gltf"> -->
       </a-assets>
         
       <a-marker type='barcode' value='642' id='marker-barcode-0'>
         <a-image src="#asset-0"></a-image>
+        <!-- <a-entity gltf-model="#tree"></a-entity> -->
       </a-marker>
 
       <!-- Define a static camera -->
