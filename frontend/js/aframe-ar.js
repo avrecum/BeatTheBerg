@@ -8288,7 +8288,7 @@ AFRAME.registerComponent('arjs-anchor', {
 
 			// it is now considered isReady
 			_this.isReady = true
-
+		}, 200);
 	},
 	remove : function(){
 	},
