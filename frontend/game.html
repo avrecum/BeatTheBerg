@@ -49,6 +49,7 @@
         window.document.getElementById("messageBox").style.display="inline";
         document.getElementById("logo").style.display="inline";
       });
+      
     }
   });
     </script>
@@ -60,15 +61,15 @@
     </noscript>
 
     <!-- add some info at the top of the page -->
-	  <a href="./index.html" id="logo"><img class="topleft" src="./logos/logo1.png"></a>
+	  <a href="./index.html" id="logo" style="display:none"><img class="topleft" src="./logos/logo1.png"></a>
 	
-    <div class="topmiddle" id="messageBox">
+    <div class="topmiddle" id="messageBox" style="display:none">
       <p>Finde den nächsten Marker und scanne ihn, um den nächsten Hinweis zu erhalten!</p>
     </div>
 
     <div class="lds-ring" id="loadingSpinner"><div></div><div></div><div></div><div></div></div>
 
-    <div id="game">
+    <div id="game" style="display:none">
     <!-- Define your 3d scene and enabled ar.js -->
     <a-scene embedded vr-mode-ui="enabled: false" arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 4x4; debugUIEnabled: false' checkstate>
       <!-- Define a static camera -->
