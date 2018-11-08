@@ -11,6 +11,7 @@ import firebase from 'firebase';
 import config from './config.js';
 
 import { getRouter } from './routes/api.mjs';
+import head from './views/head.mjs';
 
 const app = express();
 
@@ -19,16 +20,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.resolve() + '/public'));
 
-// index page 
+// index page
 app.get('/', function(req, res) {
-  res.render('index');
+  res.render('pages/index', {
+    head_template: head
+  });
 });
 
 // game page 
 app.get('/game', function(req, res) {
-  res.render('game');
+  res.render('pages/game', {
+    head_template: head
+  });
 });
 
 // Init firebase
@@ -48,9 +53,9 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // render tpages/he error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('pages/error');
 });
 
 /**
