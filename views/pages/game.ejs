@@ -28,7 +28,7 @@
         window.document.getElementById("messageBox").style.display="inline";
         document.getElementById("logo").style.display="inline";
       });
-      
+
     }
   });
     </script>
@@ -41,7 +41,7 @@
 
     <!-- add some info at the top of the page -->
 	  <a href="./index.html" id="logo" style="display:none"><img class="topleft" src="./logos/logo1.png"></a>
-	
+
     <div class="topmiddle" id="messageBox" style="display:none">
       <p>Finde den nächsten Marker und scanne ihn, um den nächsten Hinweis zu erhalten!</p>
     </div>
@@ -68,7 +68,7 @@
         <img id="asset-11" src="./milestone-images/frisbee.png">
 
 	      <img id="asset-13" src="./milestone-images/hansenbergmodell.png">
-	      <img id="asset-14" src="./milestone-images/hausmeister.png">
+
 	      <img id="asset-15" src="./milestone-images/kant.png">
 	      <img id="asset-16" src="./milestone-images/kruecke_04.png">
 	      <img id="asset-17" src="./milestone-images/popcorn.png">
@@ -77,11 +77,11 @@
 	      <img id="asset-20" src="./milestone-images/turm_03.png">
 	      <img id="asset-21" src="./milestone-images/yinyang.png">
         <img id="asset-22" src="./milestone-images/zzz_02.png">
+        <img id="black" src="./milestone-images/black.jpg">
       </a-assets>
 
       <a-marker type='barcode' value='642' id='marker-barcode-0' registerevents>
-        
-        <a-entity rotation="270 0 0">
+        <a-entity>
           <a-image src="#asset-0" side="double"></a-image>
           <a-animation attribute="rotation"
                       dur="10000"
@@ -89,11 +89,10 @@
                       to="0 0 360"
                       repeat="indefinite"></a-animation>
         </a-entity>
-      
       </a-marker>
 	    <a-marker type='barcode' value='643' id='marker-barcode-1' registerevents>
 
-        
+
         <a-entity>
           <a-image src="#asset-1" side="double"></a-image>
           <a-animation attribute="rotation"
@@ -102,7 +101,7 @@
                       to="0 360 0"
                       repeat="indefinite"></a-animation>
         </a-entity>
-      
+
         <!-- <a-entity gltf-model="#tree"></a-entity> -->
       </a-marker>
 	    <a-marker type='barcode' value='644' id='marker-barcode-2' registerevents>
@@ -238,8 +237,7 @@
         <!-- <a-entity gltf-model="#tree"></a-entity> -->
       </a-marker>
 	    <a-marker type='barcode' value='656' id='marker-barcode-14' registerevents>
-        <a-entity>
-          <a-image src="#asset-14" side="double"></a-image>
+        <a-entity scale="0.03 0.03 0.03" obj-model="obj: url(./milestone-images/tire/Car_tire_2.obj);">
           <a-animation attribute="rotation"
                       dur="10000"
                       fill="none"
@@ -337,7 +335,7 @@
         <!-- <a-entity gltf-model="#tree"></a-entity> -->
       </a-marker>
     </a-scene>
-    
+
   </div>
   </body>
 </html>
