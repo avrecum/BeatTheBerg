@@ -19,7 +19,8 @@ export const getRouter = (firebaseRef) => {
  */
 router.get('/leaderboard', async (req, res, next) => {
 
-  let name = req.body.name || null;
+  let name = req.query.name || null;
+  console.log(name);
 
   let leaderboard = [];
   let rank;
@@ -31,7 +32,7 @@ router.get('/leaderboard', async (req, res, next) => {
       leaderboard.push(Object.values(tmp));
       leaderboard = leaderboard.sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).slice(0, 20);
       user = leaderboard[0].find((el) => el.name === name);
-      rank = leaderboard.indexOf(leaderboard[0].sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).find((el) => el.name === name));
+      rank = leaderboard[0].indexOf(leaderboard[0].sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).find((el) => el.name === name));
       return true;
     } else {
       res.json({ status: 500, err: "No data! " });
