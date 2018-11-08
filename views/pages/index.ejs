@@ -7,7 +7,7 @@
   </head>
   <body>
 	<article>
-		<a href="./index.html"><img class="logo" src="./logos/logo1.png"></a>
+		<a href="./"><img class="logo" src="./logos/logo1.png"></a>
 		<h1>Willkommen bei Beat the Berg!</h1>
 		<h2>Beat the Berg ist die beste interaktive Augmented-Reality Schnitzeljagd, die ihr je gesehen habt!</h2>
 		<h3>So funktioniert es: </h3>
@@ -16,10 +16,10 @@
 			<li>Damit die Schnitzeljagd funktionieren kann, musst du der Webseite den Zugriff auf eure Kamera erlauben.</li>
 			<li>Je nach Verbindungsgeschwindigkeit dauert das erste Laden etwas, hab also ein paar Sekunden Geduld.</li>
 			<li>Der erste Marker wartet schon auf dich! Trage deinen Name ein und drücke auf Start!</li></ul>
-		<form>
+		<form action="/api/registeruser" method="POST">
 			<div class="form-group">
 				<label for="InputName">Name</label>
-				<input type="Name" class="form-control" id="InputName" aria-describedby="NameHelp" placeholder="Name">
+				<input name="user" type="Name" class="form-control" id="InputName" aria-describedby="NameHelp" placeholder="Name">
 			</div>
 		  <button type="submit" class="btn btn-primary">Start!</button>
 		</form>
