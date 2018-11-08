@@ -78,7 +78,7 @@ router.get('/user', (req, res, next) => {
 router.post('/registeruser', (req, res) => {
   const user = req.body.user;
   try {
-    let dbUserEntry = userDB.child(user).setValue({
+    let dbUserEntry = userDB.child(user).set({
       startTime: Date.now(),
       progressCounter: 0
     });
