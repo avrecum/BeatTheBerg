@@ -151,35 +151,35 @@ router.post('/user/register', (req, res) => {
 /**
  * GET Progress
  */
-router.get('/progress', (req, res, next) => {
-  // let name = req.query.name || null;
-  // console.log(name);
-  //
-  // let progress;
-  //
-  // const getData = async (data) => {
-  //   if(data.val()) {
-  //     let tmp = await data.val();
-  //     progress = tmp;
-  //     return true;
-  //   } else {
-  //     res.json({ status: 500, err: "No data! " });
-  //     return false;
-  //   }
-  // }
-  //
-  // const errData = (error) => {
-  //   console.error('Something went wrong.');
-  //   console.error(error);
-  // }
-  //
-  // let dataList = await userDB.on('value', getData, errData);
-  //
-  // // Return project if availible
-  // if(dataList) {
-  //   res.json({ status: 200, data: { leaderboard: leaderboard, user: user, rank: rank } });
-  // } else
-  //   res.json({ status: 500, err: "Error while getting preogress" });
+router.get('/progress', async (req, res, next) => {
+
+  let name = req.query.name || null;
+  console.log(name);
+
+  let progress;
+
+  const getData = async (data) => {
+    if(data.val()) {
+      let tmp = await data.val();
+      progress = tmp;
+    } else {
+      res.json({ status: 500, err: "No data! " });
+    }
+  }
+
+  const errData = (error) => {
+    console.error('Something went wrong.');
+    console.error(error);
+  }
+
+  let dataList = await userDB.on('value', getData, errData);
+
+  // Return project if availible
+  if(dataList) {
+    res.json({ status: 200, data: progress });
+  } else
+    res.json({ status: 500, err: "Error while getting preogress" });
+
 });
 
 /**
