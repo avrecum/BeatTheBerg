@@ -110,12 +110,11 @@
         </a-entity>
       </a-marker>
 	    <a-marker type='barcode' value='643' id='marker-barcode-1' registerevents>
-        <a-entity>
-          <a-image src="#asset-1" side="double"></a-image>
+        <a-entity rotation="0 0 180" scale="0.05 0.05 0.05" obj-model="obj: url(./milestone-images/2002.obj); mtl: url(./milestone-images/2002.mtl)">
           <a-animation attribute="rotation"
                       dur="10000"
                       fill="none"
-                      to="360 360 0"
+                      to="360 0 180"
                       repeat="indefinite"></a-animation>
         </a-entity>
 
