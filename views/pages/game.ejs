@@ -60,7 +60,7 @@
 	      <img id="asset-5" src="./milestone-images/boule_02.png">
 	      <!-- 3D hanger -->
 	      <img id="asset-7" src="./milestone-images/butt.png">
-	      <img id="asset-8" src="./milestone-images/dart.png">
+	      <!-- 3D Dart -->
 	      <img id="asset-9" src="./milestone-images/efeu.png">
 	      <img id="asset-10" src="./milestone-images/feuer_02.png">
         <img id="asset-11" src="./milestone-images/frisbee.png">
@@ -72,7 +72,7 @@
 	      <img id="asset-17" src="./milestone-images/popcorn.png">
 	      <!--3D Schirm -->
 	      <img id="asset-19" src="./milestone-images/tapete.png">
-	      <img id="asset-20" src="./milestone-images/turm_03.png">
+	      <!-- 3D Schloss -->
 	      <img id="asset-21" src="./milestone-images/yinyang.png">
         <img id="asset-22" src="./milestone-images/zzz_02.png">
       </a-assets>
@@ -293,9 +293,8 @@
         </a-entity>
         <!-- <a-entity gltf-model="#tree"></a-entity> -->
       </a-marker>
-	    <a-marker type='barcode' value='662' id='marker-barcode-20' registerevents>
-        <a-entity>
-          <a-image src="#asset-20" side="double"></a-image>
+      <a-marker type='barcode' value='662' id='marker-barcode-20' registerevents>
+        <a-entity scale="0.03 0.03 0.03" rotation="270 0 0" obj-model="obj: url(./milestone-images/schloss/13020_Aquarium_Castle_v1_L1.obj); mtl: url(./milestone-images/schloss/13020_Aquarium_Castle_v1_L1.mtl)">
           <a-animation attribute="rotation"
                       dur="10000"
                       fill="none"
