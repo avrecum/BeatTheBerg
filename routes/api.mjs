@@ -137,7 +137,7 @@ router.post('/user/register', (req, res) => {
             startTime: Date.now(),
             progressCounter: 0
           });
-          console.log('Data: Firebase generated key: ' + dbUserEntry.key);      
+          console.log('Data: Firebase generated key: ' + dbUserEntry.key);
         }
       }
     });
@@ -152,12 +152,39 @@ router.post('/user/register', (req, res) => {
  * GET Progress
  */
 router.get('/progress', (req, res, next) => {
-  // fetch data
+  let name = req.query.name || null;
+  console.log(name);
+
+  let progress;
+
+  const getData = async (data) => {
+    if(data.val()) {
+      let tmp = await data.val();
+      progress = tmp;
+      return true;
+    } else {
+      res.json({ status: 500, err: "No data! " });
+      return false;
+    }
+  }
+
+  const errData = (error) => {
+    console.error('Something went wrong.');
+    console.error(error);
+  }
+
+  let dataList = await userDB.on('value', getData, errData);
+
+  // Return project if availible
+  if(dataList) {
+    res.json({ status: 200, data: { leaderboard: leaderboard, user: user, rank: rank } });
+  } else
+    res.json({ status: 500, err: "Error while getting preogress" });
 });
 
 /**
- * POST UserData
+ * UPDATE progress
  */
-router.post('/progress', (req, res, next) => {
-  // post data
-});
+ router.post('/progress', (req, res, next) => {
+   // post data
+ });
