@@ -156,33 +156,72 @@ router.get("/progress", async (req, res, next) => {
   console.log(name);
 
   let progress;
+  let dataList;
 
-  const getData = async data => {
-    if (data.val()) {
-      let tmp = await data.val();
-      progress = tmp.progress;
-    } else {
-      res.json({ status: 500, err: "No data! " });
-    }
-  };
+  try {
+    const getData = async data => {
+      if (data.val()) {
+        let tmp = await data.val();
+        progress = tmp;
+      } else {
+        res.json({ status: 500, err: "No data! " });
+      }
+    };
 
-  const errData = error => {
-    console.error("Something went wrong.");
-    console.error(error);
-  };
+    const errData = error => {
+      console.error("Something went wrong.");
+      console.error(error);
+    };
 
-  let dataList = await userDB
-    .orderByChild("name")
-    .equalTo(name)
-    .on("value", getData, errData);
+    dataList = await userDB
+      .orderByKey()
+      .equalTo(name)
+      .on("value", getData, errData);
+  } catch (err) {
+    res.json({ status: 500, err: "Error while getting progress" });
+  }
 
-  // Return project if availible
-  if (dataList) {
-    res.json({ status: 200, data: progress });
-  } else res.json({ status: 500, err: "Error while getting progress" });
+  // Return progress
+  res.json({ status: 200, data: progress });
 });
 
 /**
  * UPDATE progress
  */
-router.post("/progress", (req, res, next) => {});
+router.post("/progress", async (req, res, next) => {
+  const name = req.body.name;
+
+  let progressSuccess;
+
+  try {
+    let progress;
+
+    const getData = async data => {
+      if (data.val()) {
+        let tmp = await data.val();
+        progress = parseInt(tmp.progressCounter);
+        progress++;
+        progressSuccess = await userDB
+          .child(name)
+          .update({ progressCounter: progress });
+      } else {
+        res.json({ status: 500, err: "No data! " });
+      }
+    };
+
+    const errData = error => {
+      console.error("Something went wrong.");
+      console.error(error);
+    };
+
+    dataList = await userDB
+      .orderByKey()
+      .equalTo(name)
+      .on("value", getData, errData);
+  } catch (err) {
+    res.json({ status: 500, err: "Error while updating progress" });
+  }
+
+  // Return new progress
+  res.json({ status: 200, data: progress });
+});
