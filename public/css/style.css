@@ -6,23 +6,23 @@
 		border-radius: 15px;
 		font-size: 16px;
 	}
-	
+
 	h1{
 		font-size: 28px;
 	}
-	
+
 	h2{
 		font-size: 24px;
 	}
-	
+
 	h3{
 		font-size: 18px;
 	}
-	
+
 	.logo{
 		width: 150px;
 	}
-	
+
 	ul{
 		padding: 25px;
 		margin-left:0px;
@@ -30,7 +30,7 @@
 	button.btn.btn-primary{
 		width:42.5%;
 	}
-} 
+}
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
@@ -40,27 +40,27 @@
 		border-radius: 20px;
 		font-size: 17px;
 	}
-	
+
 	h1{
 		font-size: 32px;
 	}
-	
+
 	h2{
 		font-size: 25px;
 	}
-	
+
 	h3{
 		font-size: 22px;
 	}
-	
+
 	.logo{
 		width: 250px;
 	}
-	
+
 	button.btn.btn-primary{
 		width:45%;
 	}
-} 
+}
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
@@ -70,27 +70,27 @@
 		border-radius: 20px;
 		font-size: 18px;
 	}
-	
+
 	h1{
 		font-size: 36px;
 	}
-	
+
 	h2{
 		font-size: 30px;
 	}
-	
+
 	h3{
 		font-size: 24px;
 	}
-	
+
 	.logo{
 		width: 290px;
 	}
-	
+
 	button.btn.btn-primary{
 		width:47.5%;
 	}
-} 
+}
 
 body {
 	background-color: #2E4A83;
@@ -99,6 +99,9 @@ body {
 	-ms-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
+	width: 100vw !important;
+	height: 100vh !important;
+	overflow: hidden;
 }
 
 article {
@@ -116,7 +119,7 @@ p {
 .logo {
 	display: block;
     margin-left: auto;
-    margin-right: auto;	
+    margin-right: auto;
 }
 
 .topleft{
@@ -140,6 +143,32 @@ p {
 	padding-top: 1%;
 	background-color: #fff;
 	border-radius: 10px;
+}
+
+.topleft{
+	position: fixed;
+	top: 2.5%;
+	right: 2.5%;
+	width:10%;
+	z-index: 2;
+	background-color: #fff;
+	padding: 0.5%;
+	border-radius: 10px;
+}
+
+.cursor {
+	position: fixed;
+	top: 5%;
+	left: 35%;
+	right:35%;
+	width:30%;
+	text-align: center;
+	padding-top: 1%;
+	border-radius: 10px;
+}
+
+.cursor:hover {
+	cursor: pointer !important;
 }
 
 form{
@@ -172,7 +201,7 @@ button.btn.btn-primary.white{
 table.table.table-striped.leaderboard thead th {
     border: none;
 }
-	
+
 table.table.table-striped.leaderboard thead th:first-child{
 	border-radius: 5px 0 0 0;
 }
@@ -193,7 +222,7 @@ table.table.table-striped.leaderboard tbody tr:last-child td:last-child {
     border-radius: 0 0 5px 0;
 }
 
-.own-score{ 
+.own-score{
 	border-top: 2px solid black;
 }
 
@@ -234,4 +263,3 @@ table.table.table-striped.leaderboard tbody tr:last-child td:last-child {
 	  transform: rotate(360deg);
 	}
   }
-  

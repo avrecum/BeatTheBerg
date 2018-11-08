@@ -45,11 +45,15 @@
       <p>Finde den nächsten Marker und scanne ihn, um den nächsten Hinweis zu erhalten!</p>
     </div>
 
+    <button class="btn btn-success cursor" style="margin-top: 100px;" onclick="console.log('hi')">
+      Nächster Hinweis freischalten!
+    </button>
+
     <div class="lds-ring" id="loadingSpinner"><div></div><div></div><div></div><div></div></div>
 
     <div id="game" style="display:none">
     <!-- Define your 3d scene and enabled ar.js -->
-    <a-scene embedded vr-mode-ui="enabled: false" arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 4x4; debugUIEnabled: false' checkstate>
+    <a-scene style="z-index: -1; max-height: 100vh; max-width: 100vw; overflow: hidden;" embedded vr-mode-ui="enabled: false" arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 4x4; debugUIEnabled: false' checkstate>
       <!-- Define a static camera -->
       <a-camera-static></a-camera-static>
       <a-assets checkstate>
