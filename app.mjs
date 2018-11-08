@@ -112,6 +112,7 @@ const server = http.createServer(app);
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
+console.log("Listening on port " + port);
 
 /**
  * Event listener for HTTP server "error" event.

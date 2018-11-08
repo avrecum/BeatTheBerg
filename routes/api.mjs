@@ -1,4 +1,5 @@
 import express from "express";
+import axios from "axios";
 const router = express.Router();
 
 let database;
@@ -166,7 +167,7 @@ router.get("/progress", async (req, res, next) => {
     const getData = async data => {
       if (data.val()) {
         let tmp = await data.val();
-        progress = tmp;
+        progress = parseInt(tmp[name].progressCounter);
       } else {
         res.json({ status: 500, err: "No data! " });
       }
@@ -195,37 +196,23 @@ router.get("/progress", async (req, res, next) => {
 router.post("/progress", async (req, res, next) => {
   const name = req.body.name;
 
-  let progressSuccess;
+  const updateProgress = async progress => {
+    let updateProg = parseInt(progress.data);
+    console.log(updateProg);
+    updateProg++;
+    await userDB.child(name).update({ progressCounter: updateProg });
+    res.json({ status: 200, data: updateProg });
+  };
 
-  try {
-    let progress;
-
-    const getData = async data => {
-      if (data.val()) {
-        let tmp = await data.val();
-        progress = parseInt(tmp.progressCounter);
-        progress++;
-        progressSuccess = await userDB
-          .child(name)
-          .update({ progressCounter: progress });
-      } else {
-        res.json({ status: 500, err: "No data! " });
-      }
-    };
-
-    const errData = error => {
-      console.error("Something went wrong.");
-      console.error(error);
-    };
-
-    dataList = await userDB
-      .orderByKey()
-      .equalTo(name)
-      .on("value", getData, errData);
-  } catch (err) {
-    res.json({ status: 500, err: "Error while updating progress" });
-  }
+  axios
+    .get("http://localhost:5000/api/progress?name=" + name)
+    .then(function(response) {
+      console.log(response.data);
+      updateProgress(response.data);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
 
   // Return new progress
-  res.json({ status: 200, data: progress });
 });
