@@ -65,8 +65,8 @@
 	      <img id="asset-8" src="./milestone-images/dart.png">
 	      <img id="asset-9" src="./milestone-images/efeu.png">
 	      <img id="asset-10" src="./milestone-images/feuer_02.png">
-	      <img id="asset-11" src="./milestone-images/frisbee.png">
-	      <img id="asset-12" src="./milestone-images/globus.png">
+        <img id="asset-11" src="./milestone-images/frisbee.png">
+
 	      <img id="asset-13" src="./milestone-images/hansenbergmodell.png">
 	      <img id="asset-14" src="./milestone-images/hausmeister.png">
 	      <img id="asset-15" src="./milestone-images/kant.png">
@@ -76,10 +76,11 @@
 	      <img id="asset-19" src="./milestone-images/tapete.png">
 	      <img id="asset-20" src="./milestone-images/turm_03.png">
 	      <img id="asset-21" src="./milestone-images/yinyang.png">
-	      <img id="asset-22" src="./milestone-images/zzz_02.png">
+        <img id="asset-22" src="./milestone-images/zzz_02.png">
       </a-assets>
 
       <a-marker type='barcode' value='642' id='marker-barcode-0' registerevents>
+        
         <a-entity rotation="270 0 0">
           <a-image src="#asset-0" side="double"></a-image>
           <a-animation attribute="rotation"
@@ -88,9 +89,11 @@
                       to="0 0 360"
                       repeat="indefinite"></a-animation>
         </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
+      
       </a-marker>
 	    <a-marker type='barcode' value='643' id='marker-barcode-1' registerevents>
+
+        
         <a-entity>
           <a-image src="#asset-1" side="double"></a-image>
           <a-animation attribute="rotation"
@@ -99,6 +102,7 @@
                       to="0 360 0"
                       repeat="indefinite"></a-animation>
         </a-entity>
+      
         <!-- <a-entity gltf-model="#tree"></a-entity> -->
       </a-marker>
 	    <a-marker type='barcode' value='644' id='marker-barcode-2' registerevents>
@@ -213,7 +217,7 @@
       </a-marker>
 	    <a-marker type='barcode' value='654' id='marker-barcode-12' registerevents>
         <a-entity>
-          <a-image src="#asset-12" side="double"></a-image>
+          <a-sphere src="./milestone-images/textures/earth-texture.jpg" scale="0.5 0.5 0.5" ></a-sphere>
           <a-animation attribute="rotation"
                       dur="10000"
                       fill="none"
