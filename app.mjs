@@ -15,6 +15,8 @@ import serviceAccount from "./secrets.json";
 
 import { getRouter } from "./routes/api.mjs";
 import head from "./views/head.mjs";
+import markers from "./views/markers.mjs";
+import milestones from "./views/milestones.mjs";
 
 const app = express();
 
