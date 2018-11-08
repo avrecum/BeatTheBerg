@@ -19,29 +19,39 @@ export const getRouter = (firebaseRef) => {
  */
 router.get('/leaderboard', async (req, res, next) => {
 
-  const leaderboard = [];
+  let leaderboard = [];
+  let rank;
+  let user;
 
-  
-  const getData = (data) => {
+  const getData = async (data) => {
     if(data.val()) {
-      let tmp = data.val();
+      let tmp = await data.val();
       leaderboard.push(Object.values(tmp));
+      leaderboard = leaderboard.sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).slice(0, 20);
+      user = leaderboard[0].find((el) => el.name === "Qo");
+      rank = leaderboard.indexOf(leaderboard[0].sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).find((el) => el.name === "Qo"));
+      return true;
     } else {
       res.json({ status: 500, err: "No data! " });
+      return false;
     }
   }
-  
+
   const errData = (error) => {
     console.error('Something went wrong.');
     console.error(error);
   }
-  
+
   let dataList = await leaderboardDB.on('value', getData, errData);
 
   // Return project if availible
-  if(dataList)
-    res.json({ status: 200, data: leaderboard[0] });
-  else
+  if(dataList) {
+    // res.json({ status: 200, data: { user: leaderboard[0].find((el) => el.name === "Qo"),
+    //                                 rank: leaderboard[0].indexOf(leaderboard[0].sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).find((el) => el.name === "Qo")),
+    //                                 leaderboard: leaderboard[0].sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).slice(0, 20)
+    //                               }});
+    res.json({ status: 200, data: { leaderboard: leaderboard, user: user, rank: rank } });
+  } else
     res.json({ status: 500, err: "Error while getting leaderboard" });
 
 });
@@ -52,8 +62,8 @@ router.get('/leaderboard', async (req, res, next) => {
 router.post('/leaderboard', (req, res, next) => {
 
   let user = {
-      name: 'Quentin',
-      time: 2000
+      name: 'Qo',
+      time: 100
   };
 
   let dbUser = leaderboardDB.push(user, (a) => console.log(a));
