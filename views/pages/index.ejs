@@ -17,7 +17,7 @@
 			<li>Auch benötigst du das ganze Spiel über eine Internetverbindung.</li>
 			<li>Je nach Verbindungs&shy;geschwindigkeit dauert das erste Laden etwas, hab also ein paar Sekunden Geduld.</li>
 			<li>Der erste Marker wartet schon auf dich! <wbr>Trage deinen Username ein und leg los!</li></ul>
-		<form action="/api/user/login" method="POST">
+		<form action="javascript:login()">
 			<div class="form-group">
 				<label for="InputUsername">Dein Username:</label>
 				<input Username="user" type="Username" class="form-control" id="InputUsername" aria-describedby="UsernameHelp" placeholder="maxmustermann1">
@@ -30,5 +30,11 @@
 			<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
 		</div>
 	</article>
+	<script>
+		function login() {
+			let inputValue = document.querySelector('#InputUsername').value;
+			axios.post('/api/user/login')
+		}
+	</script>
   </body>
 </html>
