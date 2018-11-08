@@ -6,7 +6,6 @@ import logger from 'morgan';
 import debugModule from 'debug';
 const debug = debugModule('beattheberg:server');
 import http from 'http';
-import firebase from 'firebase';
 import session from 'express-session';
 import FirebaseStoreModule from 'connect-session-firebase'
 const FirebaseStore = FirebaseStoreModule(session);
@@ -24,7 +23,24 @@ const app = express();
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Init firebase
+const ref = admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://beat-the-berg.firebaseio.com"
+});
+
+// Session handling
 app.use(cookieParser());
+app.use(session({
+  store: new FirebaseStore({
+    database: ref.database()
+  }),
+  secret: 'keyboard cat'
+  resave: true,
+  saveUninitialized: true
+}));
+
 app.set("view engine", "ejs");
 app.use(express.static(path.resolve() + "/public"));
 
@@ -48,12 +64,6 @@ app.get("/leaderboard", function(req, res) {
   res.render("pages/leaderboard", {
     head_template: head
   });
-});
-
-// Init firebase
-const ref = admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://beat-the-berg.firebaseio.com"
 });
 
 // Router
