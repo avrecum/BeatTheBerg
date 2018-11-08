@@ -30,6 +30,9 @@ const ref = admin.initializeApp({
   databaseURL: "https://beat-the-berg.firebaseio.com"
 });
 
+// story mode order
+const storyOrder = process.env.MILESTONES_ORDER.split("|");
+
 // Session handling
 app.use(cookieParser());
 app.use(
@@ -68,15 +71,18 @@ app.get("/", function(req, res) {
 
 // game page
 app.get("/game", function(req, res) {
+  let userProgress = req.session.progress;
   res.render("pages/game", {
-    head_template: head
+    head_template: head,
+    current_asset: milestones[userProgress],
+    current_marker: markers[userProgress]
   });
 });
 
 // game page
 app.get("/leaderboard", function(req, res) {
   res.render("pages/leaderboard", {
-    head_template: head
+    head_template: head,
   });
 });
 
@@ -95,8 +101,7 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render tpages/he error page
-  res.status(err.status || 500);
-  res.render("pages/error");
+  res.send(err.message);
 });
 
 /**

@@ -10,8 +10,9 @@
       AFRAME.registerComponent('registerevents', {
       init: function () {
         let marker = this.el;
-        marker.addEventListener('markerFound', function() {
+        marker.addEventListener('markerFound', async function() {
           let markerId = marker.id;
+          await axios.post('/api/progress');
         });
         marker.addEventListener('markerLost', function() {
           var markerId = marker.id;
@@ -52,7 +53,7 @@
       <!-- Define a static camera -->
       <a-camera-static></a-camera-static>
       <a-assets checkstate>
-        <%- current_head %>
+        <%- current_asset %>
       </a-assets>
       <!--
         //DAS BEI ALLEN GESPERRTEN MARKERN EINFUEGEN

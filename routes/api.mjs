@@ -205,7 +205,7 @@ router.get('/progress', async (req, res, next) => {
  * UPDATE progress
  */
 router.post('/progress', async (req, res, next) => {
-  const name = req.body.name;
+  const name = req.session.user;
 
   const updateProgress = async progress => {
     let updateProg = parseInt(progress.data);
