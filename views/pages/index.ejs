@@ -1,46 +1,67 @@
-<!DOCTYPE html>
-<% include ../functions %> 
+<!DOCTYPE html> <% include ../functions %>
 <html lang="de">
   <head>
-		<%- head_template %>
-		<link href="./css/style.css" rel="stylesheet">
+    <%- head_template %>
+    <link href="./css/style.css" rel="stylesheet" />
     <title>Beat the Berg! - Instructions</title>
   </head>
   <body>
-	<article>
-		<a href="./"><img class="logo" src="./logos/logo1.png"></a>
-		<h1>Willkommen bei Beat the Berg!</h1>
-		<h2>Beat the Berg ist die beste interaktive Augmented-Reality Schnitzeljagd, die ihr je gesehen habt!</h2>
-		<h3>So funktioniert es: </h3>
-			<ul><li>Auf dem ganzen Campus sind Marker verteilt, die es in der richtigen Reihenfolge zu finden gilt.</li>
-			<li>Wenn du den Marker anvisiert, erscheint der nächste Hinweis.</li>
-			<li>Damit die Schnitzeljagd funktionieren kann, musst du der Webseite den Zugriff auf deine Kamera erlauben.</li>
-			<li>Auch benötigst du das ganze Spiel über eine Internetverbindung.</li>
-			<li>Je nach Verbindungs&shy;geschwindigkeit dauert das erste Laden etwas, hab also ein paar Sekunden Geduld.</li>
-<<<<<<< Updated upstream
-			<li>Der erste Marker wartet schon auf dich! <wbr>Trage deinen Username ein und leg los!</li></ul>
-		<form action="/api/user/login" method="POST">
-=======
-			<li>Der erste Marker wartet schon auf dich!<wbr>Trage deinen Username ein und drücke auf Start!</li></ul>
-		<form action="javascript:login()">
->>>>>>> Stashed changes
-			<div class="form-group">
-				<label for="InputUsername">Dein Username:</label>
-				<input Username="user" type="Username" class="form-control" id="InputUsername" aria-describedby="UsernameHelp" placeholder="maxmustermann1">
-			</div>
-		  <button type="submit" class="btn btn-primary register">Registrieren</button>
-		  <button type="submit" class="btn btn-primary login">Einloggen</button>
-		</form>
-	</article>
-	<script>
-		function login() {
-			let user = document.querySelector('#InputUsername').value;
-			console.log(user);
-			let res = axios.post('/api/user/login', {
-				user
-			});
-			let alreadyInDatabase = 
-		}
-	</script>
+    <article>
+      <a href="./"><img class="logo" src="./logos/logo1.png"/></a>
+      <h1>Willkommen bei Beat the Berg!</h1>
+      <h2>
+        Beat the Berg ist die beste interaktive Augmented-Reality Schnitzeljagd,
+        die ihr je gesehen habt!
+      </h2>
+      <h3>So funktioniert es:</h3>
+      <ul>
+        <li>
+          Auf dem ganzen Campus sind Marker verteilt, die es in der richtigen
+          Reihenfolge zu finden gilt.
+        </li>
+        <li>Wenn du den Marker anvisiert, erscheint der nächste Hinweis.</li>
+        <li>
+          Damit die Schnitzeljagd funktionieren kann, musst du der Webseite den
+          Zugriff auf deine Kamera erlauben.
+        </li>
+        <li>Auch benötigst du das ganze Spiel über eine Internetverbindung.</li>
+        <li>
+          Je nach Verbindungs&shy;geschwindigkeit dauert das erste Laden etwas,
+          hab also ein paar Sekunden Geduld.
+        </li>
+        <li>
+          Der erste Marker wartet schon auf dich!<wbr />Trage deinen Username
+          ein und drücke auf Start!
+        </li>
+      </ul>
+      <form action="javascript:login()">
+        <div class="form-group">
+          <label for="InputUsername">Dein Username:</label>
+          <input
+            Username="user"
+            type="Username"
+            class="form-control"
+            id="InputUsername"
+            aria-describedby="UsernameHelp"
+            placeholder="maxmustermann1"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary register">
+          Registrieren
+        </button>
+        <button type="submit" class="btn btn-primary login">Einloggen</button>
+      </form>
+    </article>
+    <script>
+      function login() {
+        let user = document.querySelector('#InputUsername').value;
+        console.log(user);
+        let res = axios.post('/api/user/login', {
+          user
+        });
+        if (res.status === 500) {
+        }
+      }
+    </script>
   </body>
 </html>
