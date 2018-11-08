@@ -73,11 +73,38 @@ router.get('/user', (req, res, next) => {
 });
 
 /**
- * POST add user to user database
+ * POST login user
  */
-router.post('/registeruser', (req, res) => {
+router.post('/user/login', (req, res) => {
   const user = req.body.user;
   try {
+    userDB.on('value', (data) => {
+      let users = data.val();
+      if (users) {
+        if (users[user]) {
+          
+        }
+      }
+    });
+    let dbUserEntry = userDB.child(user).set({
+      startTime: Date.now(),
+      progressCounter: 0
+    });
+    console.log('Data: Firebase generated key: ' + dbUserEntry.key);
+  } catch (err) {
+    console.error(err);
+  }
+
+  res.redirect('/game');
+});
+
+/**
+ * POST add user to user database
+ */
+router.post('/user/register', (req, res) => {
+  const user = req.body.user;
+  try {
+    
     let dbUserEntry = userDB.child(user).set({
       startTime: Date.now(),
       progressCounter: 0
