@@ -64,13 +64,13 @@
 	      <img id="asset-9" src="./milestone-images/efeu.png">
 	      <img id="asset-10" src="./milestone-images/feuer_02.png">
         <img id="asset-11" src="./milestone-images/frisbee.png">
-
+        <!--Sphere-->
 	      <img id="asset-13" src="./milestone-images/hansenbergmodell.png">
-
+        <!--3D Reifen -->
 	      <img id="asset-15" src="./milestone-images/kant.png">
 	      <img id="asset-16" src="./milestone-images/kruecke_04.png">
 	      <img id="asset-17" src="./milestone-images/popcorn.png">
-	      <img id="asset-18" src="./milestone-images/schirm_02.png">
+	      <!--3D Schirm -->
 	      <img id="asset-19" src="./milestone-images/tapete.png">
 	      <img id="asset-20" src="./milestone-images/turm_03.png">
 	      <img id="asset-21" src="./milestone-images/yinyang.png">
@@ -145,9 +145,8 @@
         </a-entity>
         <!-- <a-entity gltf-model="#tree"></a-entity> -->
       </a-marker>
-	    <a-marker type='barcode' value='648' id='marker-barcode-6' registerevents>
-        <a-entity>
-          <a-image src="#asset-6" side="double"></a-image>
+      <a-marker type='barcode' value='648' id='marker-barcode-6' registerevents>
+        <a-entity scale="0.05 0.05 0.05" rotation="270 0 0" obj-model="obj: url(./milestone-images/hanger/10922_Coat_hangers_v3_LOD3.obj); mtl: url(./milestone-images/hanger/10922_Coat_hangers_v3_LOD3.mtl)">
           <a-animation attribute="rotation"
                       dur="10000"
                       fill="none"
