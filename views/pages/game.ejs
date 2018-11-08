@@ -15,6 +15,7 @@
           await axios.post('/api/progress', {
             marker: Number(markerId.split('marker-barcode-')[1]) + 1
           });
+          document.querySelector(".cursor").style="margin-top: 100px;";
         });
         marker.addEventListener('markerLost', function() {
           var markerId = marker.id;
@@ -35,20 +36,20 @@
     </script>
     <title>Beat the Berg!- The Game</title>
   </head>
-  <body>
+  <body style="width: 100vw !important; height: 100vh !important; overflow: hidden;">
     <noscript>
       <strong>Beat the Berg! funktioniert nur mit JavaScript. Bitte erlaube JavaScript um fortzufahren.</strong>
     </noscript>
 
     <!-- add some info at the top of the page -->
-	  <a href="./index.html" id="logo" style="display:none"><img class="topleft" src="./logos/logo1.png"></a>
+	  <a href="./index.html" id="logo"><img class="topleft" src="./logos/logo1.png"></a>
 
-    <div class="topmiddle" id="messageBox" style="display:none">
+    <div class="topmiddle" id="messageBox">
       <p>Finde den nächsten Marker und scanne ihn, um den nächsten Hinweis zu erhalten!</p>
     </div>
 
-    <button class="btn btn-success cursor" style="margin-top: 100px;" onclick="console.log('hi')">
-      Nächster Hinweis freischalten!
+    <button class="btn btn-success cursor" style="margin-top: 100px; display:none;" onclick="location.reload()">
+      Nächsten Hinweis freischalten!
     </button>
 
     <div class="lds-ring" id="loadingSpinner"><div></div><div></div><div></div><div></div></div>
