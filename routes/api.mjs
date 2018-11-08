@@ -98,7 +98,7 @@ router.post('/user/login', (req, res) => {
         if (users[user]) {
           req.session.progress = users[user].progressCounter;
           req.session.startTime = users[user].startTime;
-          req.session.name = user;
+          req.session.user = user;
           res.json({
             status: 200,
             data: {}
@@ -168,8 +168,7 @@ router.get('/user/logout', (req, res) => {
  * GET Progress
  */
 router.get('/progress', async (req, res, next) => {
-  let name = req.query.name || null;
-  console.log(name);
+  let name = req.query.user || null;
 
   let progress;
   let dataList;
@@ -205,18 +204,18 @@ router.get('/progress', async (req, res, next) => {
  * UPDATE progress
  */
 router.post('/progress', async (req, res, next) => {
-  const name = req.session.user;
+  const user = req.session.user;
 
   const updateProgress = async progress => {
     let updateProg = parseInt(progress.data);
     console.log(updateProg);
     updateProg++;
-    await userDB.child(name).update({ progressCounter: updateProg });
+    await userDB.child(user).update({ progressCounter: updateProg });
     res.json({ status: 200, data: updateProg });
   };
 
   axios
-    .get('http://localhost:5000/api/progress?name=' + name)
+    .get('http://localhost:5000/api/progress')
     .then(function(response) {
       console.log(response.data);
       updateProgress(response.data);
