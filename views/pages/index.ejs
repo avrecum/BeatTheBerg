@@ -63,7 +63,9 @@
 	<script>
 		function login() {
 			let inputValue = document.querySelector('#InputUsername').value;
-			axios.post('/api/user/login')
+			axios.post('/api/user/login', {
+				user: inputValue
+			})
 		}
 	</script>
   </body>
