@@ -96,12 +96,12 @@ router.post("/user/login", (req, res) => {
       let users = data.val();
       if (users) {
         if (users[user]) {
+          req.session.progress = users[user].progressCounter;
+          req.session.startTime = users[user].startTime;
+          req.session.name = user;
           res.json({
             status: 200,
-            data: {
-              progress: users[user].progressCounter,
-              startTime: users[user].startTime
-            }
+            data: {}
           });
         } else {
           res.json({
@@ -126,6 +126,9 @@ router.post("/user/register", (req, res) => {
       let users = data.val();
       if (users) {
         if (users[user]) {
+          req.session.progress = users[user].progressCounter;
+          req.session.startTime = users[user].startTime;
+          req.session.name = user;
           res.json({
             status: 200,
             data: {
@@ -139,6 +142,7 @@ router.post("/user/register", (req, res) => {
             progressCounter: 0
           });
           console.log("Data: Firebase generated key: " + dbUserEntry.key);
+          res.json({ status: 200 });
         }
       }
     });
