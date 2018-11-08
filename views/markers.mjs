@@ -268,7 +268,6 @@ const markers = [
                 to='0 360 0'\
                 repeat='indefinite'></a-animation>\
   </a-entity>\
-
 </a-marker>\
 "
 ];
