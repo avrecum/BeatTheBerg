@@ -35,7 +35,7 @@ router.get('/leaderboard', async (req, res, next) => {
       leaderboard = Object.values(tmp);
       leaderboard = leaderboard
         .sort((a, b) => parseFloat(b.time) - parseFloat(a.time))
-        .slice(0, 20);
+        .slice(0, 10);
       user = leaderboard.find(el => el.name === name);
       rank = leaderboard.indexOf(
         leaderboard
