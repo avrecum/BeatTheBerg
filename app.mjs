@@ -19,15 +19,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
 
 // index page 
 app.get('/', function(req, res) {
   res.render('index');
 });
 
-// about page 
-app.get('/about', function(req, res) {
-  res.render('about');
+// game page 
+app.get('/game', function(req, res) {
+  res.render('game');
 });
 
 // Init firebase
