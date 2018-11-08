@@ -27,10 +27,10 @@
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
 	article{
-		margin: 50px 30px;
+		margin: 40px 30px;
 		padding: 0px 30px 15px;
 		border-radius: 20px;
-		font-size: 18px;
+		font-size: 17px;
 	}
 	
 	h1{
@@ -46,37 +46,33 @@
 	}
 	
 	.logo{
-		width: 275px;
+		width: 250px;
 	}
 } 
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
 	article{
-		margin: 50px 120px;
-		padding: 25px 40px;
+		margin: 50px 70px;
+		padding: 0px 40px 20px;
 		border-radius: 20px;
-		font-size: 20px;
+		font-size: 18px;
 	}
 	
 	h1{
-		font-size: 44px;
-	}
-	
-	h2{
 		font-size: 36px;
 	}
 	
-	h3{
+	h2{
 		font-size: 30px;
 	}
 	
-	.logo{
-		width: 320px;
+	h3{
+		font-size: 24px;
 	}
 	
-	form-group, button.btn.btn-primary, input.placeholder{
-		font-size: 24px;
+	.logo{
+		width: 275px;
 	}
 } 
 
