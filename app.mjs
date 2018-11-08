@@ -3,10 +3,13 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import debug from 'debug';
-debug('beattheberg:server');
+import debugModule from 'debug';
+const debug = debugModule('beattheberg:server');
 import http from 'http';
 import firebase from 'firebase';
+import session from 'express-session';
+import FirebaseStoreModule from 'connect-session-firebase'
+const FirebaseStore = FirebaseStoreModule(session);
 
 import config from './config.js';
 
@@ -25,7 +28,8 @@ app.use(express.static(path.resolve() + '/public'));
 // index page
 app.get('/', function(req, res) {
   res.render('pages/index', {
-    head_template: head
+    head_template: head,
+    user: false
   });
 });
 
