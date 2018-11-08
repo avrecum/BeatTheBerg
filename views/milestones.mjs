@@ -22,7 +22,7 @@ const milestones = [
 '<a-asset-item id="asset-20-obj" src="./milestone-images/castle.obj"></a-asset-item><a-asset-item id="asset-20-mtl" src="./milestone-images/castle.mtl"></a-asset-item>',
 '<img id="asset-21" src="./milestone-images/yinyang.png">',
 '<img id="asset-22" src="./milestone-images/zzz_02.png">',
-'',
+'<a-asset-item id="asset-23-obj" src="./milestone-images/trophy.obj"></a-asset-item><a-asset-item id="asset-23-mtl" src="./milestone-images/trophy.mtl"></a-asset-item>',
 '<a-asset-item id="locked-obj" src="./milestone-images/locked.obj"></a-asset-item><a-asset-item id="locked-mtl" src="./milestone-images/locked.mtl"></a-asset-item>'
 ];
 
