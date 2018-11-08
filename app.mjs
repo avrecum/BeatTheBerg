@@ -36,6 +36,13 @@ app.get('/game', function(req, res) {
   });
 });
 
+// game page 
+app.get('/leaderboard', function(req, res) {
+  res.render('pages/leaderboard', {
+    head_template: head
+  });
+});
+
 // Init firebase
 const ref = firebase.initializeApp(config);
 
