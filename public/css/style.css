@@ -2,10 +2,12 @@ body {
 	background-color: #2E4A83;
 	color: #000;
 	font-family: "Bahnschrift", sans-serif;
+	-ms-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
 }
 
 article {
-	background-color: black;
 	margin: 2vh 8vw 2vh 8vw;
     padding: 2vh 6vw 2vh 6vw;
     background-color: white;
