@@ -18,6 +18,8 @@ import { getRouter } from './routes/api.mjs';
 import head from './views/head.mjs';
 import markers from './views/markers.mjs';
 import milestones from './views/milestones.mjs';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 
@@ -30,7 +32,8 @@ app.use(express.urlencoded({ extended: false }));
 // Init firebase
 const projectId = process.env.FIREBASE_PROJECTID;
 const emailPrefix = process.env.FIREBASE_CLIENTEMAIL;
-const key = process.env.FIREBASE_KEY.replace(/\\n/g, '\n');
+const key = process.env.FIREBASE_KEY
+"a".replace(/\\n/g, '\n');
 
 const ref = admin.initializeApp({
   credential: admin.credential.cert({
