@@ -25,10 +25,40 @@
 			<button type="submit" class="btn btn-primary register">Registrieren</button>
 			<button type="submit" class="btn btn-primary login">Einloggen</button>
 		</form>
-		<p>Dein Fortschritt:</p>
+		<h3>Dein Fortschritt</h3>
 		<div class="progress">
 			<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
 		</div>
+		<h3>Bestenliste</h3>
+		<table summary="Leaderboard" title="Leaderboard" class="table table-striped leaderboard">
+			<thead class="thead-dark">
+				<th scope="col">Platz</th>
+				<th scope="col">Username</th>
+				<th scope="col">Zeit</th>
+			</thead>
+			<tbody>
+				<tr>
+				  <td scope="row">1</td>
+				  <td>Mark</td>
+				  <td>200</td>
+				</tr>
+				<tr>
+				  <td scope="row">2</td>
+				  <td>Jacob</td>
+				  <td>500</td>
+				</tr>
+				<tr>
+				  <td scope="row">3</td>
+				  <td>Larry</td>
+				  <td>900</td>
+				</tr>
+				<tr class="own-score">
+				  <td scope="row">200</td>
+				  <td>Quentin</td>
+				  <td>9000</td>
+				</tr>
+			</tbody>
+		</table>
 	</article>
 	<script>
 		function login() {
