@@ -19,6 +19,8 @@ export const getRouter = (firebaseRef) => {
  */
 router.get('/leaderboard', async (req, res, next) => {
 
+  let name = req.body.name || null;
+
   let leaderboard = [];
   let rank;
   let user;
@@ -28,8 +30,8 @@ router.get('/leaderboard', async (req, res, next) => {
       let tmp = await data.val();
       leaderboard.push(Object.values(tmp));
       leaderboard = leaderboard.sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).slice(0, 20);
-      user = leaderboard[0].find((el) => el.name === "Qo");
-      rank = leaderboard.indexOf(leaderboard[0].sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).find((el) => el.name === "Qo"));
+      user = leaderboard[0].find((el) => el.name === name);
+      rank = leaderboard.indexOf(leaderboard[0].sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).find((el) => el.name === name));
       return true;
     } else {
       res.json({ status: 500, err: "No data! " });
@@ -46,10 +48,6 @@ router.get('/leaderboard', async (req, res, next) => {
 
   // Return project if availible
   if(dataList) {
-    // res.json({ status: 200, data: { user: leaderboard[0].find((el) => el.name === "Qo"),
-    //                                 rank: leaderboard[0].indexOf(leaderboard[0].sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).find((el) => el.name === "Qo")),
-    //                                 leaderboard: leaderboard[0].sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).slice(0, 20)
-    //                               }});
     res.json({ status: 200, data: { leaderboard: leaderboard, user: user, rank: rank } });
   } else
     res.json({ status: 500, err: "Error while getting leaderboard" });
@@ -61,9 +59,12 @@ router.get('/leaderboard', async (req, res, next) => {
  */
 router.post('/leaderboard', (req, res, next) => {
 
+  let name = req.body.name;
+  let time = Number(req.body.time);
+
   let user = {
-      name: 'Qo',
-      time: 100
+      name: name,
+      time: time
   };
 
   let dbLeaderboardEntry = leaderboardDB.push(user, (a) => console.log(a));
@@ -72,7 +73,7 @@ router.post('/leaderboard', (req, res, next) => {
   if(dbLeaderboardEntry)
     res.json({ status: 200, data: dbLeaderboardEntry.key });
   else
-    res.json({ status: 500, err: "Error while adding user" });
+    res.json({ status: 500, err: "Error while adding leaderboard entry!" });
 });
 
 /**
