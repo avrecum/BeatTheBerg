@@ -73,8 +73,8 @@ router.post('/leaderboard', (req, res, next) => {
   let time = Number(req.body.time);
 
   let user = {
-    name: name,
-    time: time
+    name,
+    time
   };
 
   let dbLeaderboardEntry = leaderboardDB.push(user, a => console.log(a));
@@ -159,12 +159,5 @@ router.get('/progress', (req, res, next) => {
  * POST UserData
  */
 router.post('/progress', (req, res, next) => {
-  // post data
-});
-
-/**
- * UPDATE progress
- */
-router.update('/progress', (req, res, next) => {
   // post data
 });
