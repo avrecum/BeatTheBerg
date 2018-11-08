@@ -1,37 +1,38 @@
-import createError from "http-errors";
-import express from "express";
-import path from "path";
-import cookieParser from "cookie-parser";
-import logger from "morgan";
-import debugModule from "debug";
-const debug = debugModule("beattheberg:server");
-import http from "http";
-import session from "express-session";
-import FirebaseStoreModule from "connect-session-firebase";
+import createError from 'http-errors';
+import express from 'express';
+import path from 'path';
+import axios from 'axios';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import debugModule from 'debug';
+const debug = debugModule('beattheberg:server');
+import http from 'http';
+import session from 'express-session';
+import FirebaseStoreModule from 'connect-session-firebase';
 const FirebaseStore = FirebaseStoreModule(session);
-import admin from "firebase-admin";
+import admin from 'firebase-admin';
 
-import serviceAccount from "./secrets.json";
+import serviceAccount from './secrets.json';
 
-import { getRouter } from "./routes/api.mjs";
-import head from "./views/head.mjs";
-import markers from "./views/markers.mjs";
-import milestones from "./views/milestones.mjs";
+import { getRouter } from './routes/api.mjs';
+import head from './views/head.mjs';
+import markers from './views/markers.mjs';
+import milestones from './views/milestones.mjs';
 
 const app = express();
 
-app.use(logger("dev"));
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Init firebase
 const ref = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://beat-the-berg.firebaseio.com"
+  databaseURL: 'https://beat-the-berg.firebaseio.com'
 });
 
 // story mode order
-const storyOrder = process.env.MILESTONES_ORDER.split("|");
+const storyOrder = process.env.MILESTONES_ORDER.split('|');
 
 // Session handling
 app.use(cookieParser());
@@ -40,54 +41,80 @@ app.use(
     store: new FirebaseStore({
       database: ref.database()
     }),
-    secret: "keyboard cat",
+    secret: 'keyboard cat',
     resave: true,
     saveUninitialized: true
   })
 );
 
-app.set("view engine", "ejs");
-app.use(express.static(path.resolve() + "/public"));
+app.set('view engine', 'ejs');
+app.use(express.static(path.resolve() + '/public'));
+
+var appendLocalsToUseInViews = function(req, res, next)
+{
+    // append request and session to use directly in views and avoid passing around needless stuff
+    res.locals.request = req;
+
+    if(req.session != null && req.session.user != null)
+    {
+        res.locals.user = req.session.user;
+    }
+
+    next(null, req, res);
+};
+
+app.use(appendLocalsToUseInViews);
 
 // index page
-app.get("/", function(req, res) {
-  const { progress, startTime, name } = req.session;
+app.get('/', function(req, res) {
+  const { progress, startTime, user } = req.session;
+  res.locals.user = user;
   if (progress == null) {
-    res.render("pages/index", {
+    res.render('pages/index', {
       head_template: head,
       user: false
     });
   } else {
-    res.render("pages/index", {
+    res.render('pages/index', {
       head_template: head,
       user: {
-        name,
+        user,
         progress,
         startTime
       }
     });
-    }
+  }
 });
 
 // game page
-app.get("/game", function(req, res) {
-  let userProgress = req.session.progress;
-  res.render("pages/game", {
+app.get('/game', async function(req, res) {
+  const response = await axios.get(`http://localhost:5000/api/progress?user=${res.locals.request.session.user}`);
+  let userProgress = response.data.data - 1;
+  let currentMilestone = storyOrder[userProgress];
+  let current_asset =
+    currentMilestone > 0
+      ? milestones[currentMilestone] + milestones[currentMilestone - 1]
+      : milestones[currentMilestone];
+  let current_marker =
+    currentMilestone > 0
+      ? markers[currentMilestone] + markers[currentMilestone - 1]
+      : milestones[currentMilestone];
+  res.render('pages/game', {
     head_template: head,
-    current_asset: milestones[userProgress],
-    current_marker: markers[userProgress]
+    current_asset,
+    current_marker
   });
 });
 
 // game page
-app.get("/leaderboard", function(req, res) {
-  res.render("pages/leaderboard", {
-    head_template: head,
+app.get('/leaderboard', function(req, res) {
+  res.render('pages/leaderboard', {
+    head_template: head
   });
 });
 
 // Router
-app.use("/api/", getRouter(ref));
+app.use('/api/', getRouter(ref, storyOrder));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -98,7 +125,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render tpages/he error page
   res.send(err.message);
@@ -108,8 +135,8 @@ app.use(function(err, req, res, next) {
  * Get port from environment and store in Express.
  */
 
-const port = process.env.PORT || "5000";
-app.set("port", port);
+const port = process.env.PORT || '5000';
+app.set('port', port);
 
 /**
  * Create HTTP server, listen on ports
@@ -117,28 +144,28 @@ app.set("port", port);
 
 const server = http.createServer(app);
 server.listen(port);
-server.on("error", onError);
-server.on("listening", onListening);
-console.log("Listening on port " + port);
+server.on('error', onError);
+server.on('listening', onListening);
+console.log('Listening on port ' + port);
 
 /**
  * Event listener for HTTP server "error" event.
  */
 function onError(error) {
-  if (error.syscall !== "listen") {
+  if (error.syscall !== 'listen') {
     throw error;
   }
 
-  let bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+  let bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
-    case "EACCES":
-      console.error(bind + " requires elevated privileges");
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
       process.exit(1);
       break;
-    case "EADDRINUSE":
-      console.error(bind + " is already in use");
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
       process.exit(1);
       break;
     default:
@@ -151,6 +178,6 @@ function onError(error) {
  */
 function onListening() {
   let addr = server.address();
-  let bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-  debug("Listening on " + bind);
+  let bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  debug('Listening on ' + bind);
 }
