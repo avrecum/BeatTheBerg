@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 const router = express.Router();
 
 let database;
@@ -9,8 +9,8 @@ let firebase;
 export const getRouter = firebaseRef => {
   firebase = firebaseRef;
   database = firebase.database();
-  userDB = database.ref('users');
-  leaderboardDB = database.ref('leaderboard');
+  userDB = database.ref("users");
+  leaderboardDB = database.ref("leaderboard");
   return router;
 };
 
@@ -20,78 +20,78 @@ export const getRouter = firebaseRef => {
  *         requested user (?name=username) as {name, time}
  *         user rank as int
  */
-router.get('/leaderboard', async (req, res, next) => {
+router.get("/leaderboard", async (req, res, next) => {
   let name = req.query.name || null;
   console.log(name);
 
-  let leaderboard = [];
+  let leaderboard;
   let rank;
   let user;
 
   const getData = async data => {
     if (data.val()) {
       let tmp = await data.val();
-      leaderboard.push(Object.values(tmp));
+      leaderboard = Object.values(tmp);
       leaderboard = leaderboard
         .sort((a, b) => parseFloat(b.time) - parseFloat(a.time))
         .slice(0, 20);
-      user = leaderboard[0].find(el => el.name === name);
-      rank = leaderboard[0].indexOf(
-        leaderboard[0]
+      user = leaderboard.find(el => el.name === name);
+      rank = leaderboard.indexOf(
+        leaderboard
           .sort((a, b) => parseFloat(a.time) - parseFloat(b.time))
           .find(el => el.name === name)
       );
       rank++;
       return true;
     } else {
-      res.json({ status: 500, err: 'No data! ' });
+      res.json({ status: 500, err: "No data! " });
       return false;
     }
   };
 
   const errData = error => {
-    console.error('Something went wrong.');
+    console.error("Something went wrong.");
     console.error(error);
   };
 
-  let dataList = await leaderboardDB.on('value', getData, errData);
+  let dataList = await leaderboardDB.on("value", getData, errData);
 
   // Return project if availible
   if (dataList) {
     res.json({
       status: 200,
-      data: { leaderboard: leaderboard, user: user, rank: rank }
+      data: { leaderboard, user, rank }
     });
-  } else res.json({ status: 500, err: 'Error while getting leaderboard' });
+  } else res.json({ status: 500, err: "Error while getting leaderboard" });
 });
 
 /**
  * POST Leaderboard
  */
-router.post('/leaderboard', (req, res, next) => {
+router.post("/leaderboard", async (req, res, next) => {
   let name = req.body.name;
   let time = Number(req.body.time);
 
   let user = {
-    name: name,
-    time: time
+    name,
+    time
   };
 
-  let dbLeaderboardEntry = leaderboardDB.push(user, a => console.log(a));
-  console.log('Data: Firebase generated key: ' + dbLeaderboardEntry.key);
+  let dbLeaderboardEntry = leaderboardDB.child(user.name).set(user);
+  console.log("Data: Firebase generated key: " + dbLeaderboardEntry.key);
 
   if (dbLeaderboardEntry)
     res.json({ status: 200, data: dbLeaderboardEntry.key });
-  else res.json({ status: 500, err: 'Error while adding leaderboard entry!' });
+  else res.json({ status: 500, err: "Error while adding leaderboard entry!" });
 });
 
 /**
  * POST login user
  */
-router.post('/user/login', (req, res) => {
+router.post("/user/login", (req, res) => {
   const user = req.body.user;
   try {
-    userDB.on('value', data => {
+    userDB.on("value", data => {
       let users = data.val();
       if (users) {
         if (users[user]) {
@@ -118,10 +118,10 @@ router.post('/user/login', (req, res) => {
 /**
  * POST add user to user database
  */
-router.post('/user/register', (req, res) => {
+router.post("/user/register", (req, res) => {
   const user = req.body.user;
   try {
-    userDB.on('value', data => {
+    userDB.on("value", data => {
       let users = data.val();
       if (users) {
         if (users[user]) {
@@ -137,54 +137,52 @@ router.post('/user/register', (req, res) => {
             startTime: Date.now(),
             progressCounter: 0
           });
-          console.log('Data: Firebase generated key: ' + dbUserEntry.key);
+          console.log("Data: Firebase generated key: " + dbUserEntry.key);
         }
       }
     });
-    } catch (err) {
+  } catch (err) {
     console.error(err);
   }
 
-  res.redirect('/game');
+  res.redirect("/game");
 });
 
 /**
  * GET Progress
  */
-router.get('/progress', (req, res, next) => {
-  // let name = req.query.name || null;
-  // console.log(name);
-  //
-  // let progress;
-  //
-  // const getData = async (data) => {
-  //   if(data.val()) {
-  //     let tmp = await data.val();
-  //     progress = tmp;
-  //     return true;
-  //   } else {
-  //     res.json({ status: 500, err: "No data! " });
-  //     return false;
-  //   }
-  // }
-  //
-  // const errData = (error) => {
-  //   console.error('Something went wrong.');
-  //   console.error(error);
-  // }
-  //
-  // let dataList = await userDB.on('value', getData, errData);
-  //
-  // // Return project if availible
-  // if(dataList) {
-  //   res.json({ status: 200, data: { leaderboard: leaderboard, user: user, rank: rank } });
-  // } else
-  //   res.json({ status: 500, err: "Error while getting preogress" });
+router.get("/progress", async (req, res, next) => {
+  let name = req.query.name || null;
+  console.log(name);
+
+  let progress;
+
+  const getData = async data => {
+    if (data.val()) {
+      let tmp = await data.val();
+      progress = tmp.progress;
+    } else {
+      res.json({ status: 500, err: "No data! " });
+    }
+  };
+
+  const errData = error => {
+    console.error("Something went wrong.");
+    console.error(error);
+  };
+
+  let dataList = await userDB
+    .orderByChild("name")
+    .equalTo(name)
+    .on("value", getData, errData);
+
+  // Return project if availible
+  if (dataList) {
+    res.json({ status: 200, data: progress });
+  } else res.json({ status: 500, err: "Error while getting progress" });
 });
 
 /**
  * UPDATE progress
  */
- router.post('/progress', (req, res, next) => {
-   // post data
- });
+router.post("/progress", (req, res, next) => {});
