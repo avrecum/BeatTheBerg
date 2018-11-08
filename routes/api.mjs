@@ -1,4 +1,5 @@
 import express from "express";
+import head from '../views/head.mjs';
 const router = express.Router();
 
 let database;
@@ -95,11 +96,18 @@ router.post("/user/login", (req, res) => {
       let users = data.val();
       if (users) {
         if (users[user]) {
-          res.json({
-            status: 200,
-            data: {
-              progress: users[user].progressCounter,
-              startTime: users[user].startTime
+          // res.json({
+          //   status: 200,
+          //   data: {
+          //     progress: users[user].progressCounter,
+          //     startTime: users[user].startTime
+          //   }
+          // });
+          res.render('pages/game', {
+            head_template: head,
+            user: {
+              name: user,
+              ...users[user]
             }
           });
         } else {

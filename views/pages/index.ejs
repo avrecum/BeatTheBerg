@@ -33,31 +33,34 @@
           Der erste Marker wartet schon auf dich!<wbr />Trage deinen Username
           ein und drücke auf Start!
         </li>
-      </ul>
-      <form action="javascript:login()">
-        <div class="form-group">
-          <label for="InputUsername">Dein Username:</label>
-          <input
-            Username="user"
-            type="Username"
-            class="form-control"
-            id="InputUsername"
-            aria-describedby="UsernameHelp"
-            placeholder="maxmustermann1"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary register">
-          Registrieren
-        </button>
-        <button type="submit" class="btn btn-primary login">Einloggen</button>
-      </form>
+			</ul>
+			<% if (user) { %>
+				<div><%= user.name %></div>
+			<% } else { %>
+				<form action="javascript:login()">
+					<div class="form-group">
+						<label for="InputUsername">Dein Username:</label>
+						<input
+							Username="user"
+							type="Username"
+							class="form-control"
+							id="InputUsername"
+							aria-describedby="UsernameHelp"
+							placeholder="maxmustermann1"
+						/>
+					</div>
+					<button type="submit" class="btn btn-primary register">
+						Registrieren
+					</button>
+					<button type="submit" class="btn btn-primary login">Einloggen</button>
+				</form>
+			<% } %>
     </article>
     <script>
       function login() {
-        let user = document.querySelector('#InputUsername').value;
-        console.log(user);
+        let inputVal = document.querySelector('#InputUsername').value;
         let res = axios.post('/api/user/login', {
-          user
+          user: inputVal
         });
         if (res.status === 500) {
         }

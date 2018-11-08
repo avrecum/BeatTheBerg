@@ -3,338 +3,528 @@
   <head>
     <%- head_template %>
     <script src="./js/aframe.min.js"></script>
-    <script src='./js/aframe-ar.js'></script>
-    <script src='./js/main.js'></script>
-    <link href="./css/style.css" rel="stylesheet">
+    <script src="./js/aframe-ar.js"></script>
+    <script src="./js/main.js"></script>
+    <link href="./css/style.css" rel="stylesheet" />
     <script>
       AFRAME.registerComponent('registerevents', {
-      init: function () {
-        let marker = this.el;
-        marker.addEventListener('markerFound', function() {
-          let markerId = marker.id;
-        });
-        marker.addEventListener('markerLost', function() {
-          var markerId = marker.id;
-        });
-      }
-  });
-  AFRAME.registerComponent('checkstate',{
-    init: function(){
-      let scene = this.el;
-      scene.addEventListener("loaded", function(){
-        window.document.getElementById("loadingSpinner").style.display="none";
-        window.document.getElementById("game").style.display="contents";
-        window.document.getElementById("messageBox").style.display="inline";
-        document.getElementById("logo").style.display="inline";
+        init: function() {
+          let marker = this.el;
+          marker.addEventListener('markerFound', function() {
+            let markerId = marker.id;
+          });
+          marker.addEventListener('markerLost', function() {
+            var markerId = marker.id;
+          });
+        }
       });
-
-    }
-  });
+      AFRAME.registerComponent('checkstate', {
+        init: function() {
+          let scene = this.el;
+          scene.addEventListener('loaded', function() {
+            window.document.getElementById('loadingSpinner').style.display =
+              'none';
+            window.document.getElementById('game').style.display = 'contents';
+            window.document.getElementById('messageBox').style.display =
+              'inline';
+            document.getElementById('logo').style.display = 'inline';
+          });
+        }
+      });
     </script>
     <title>Beat the Berg!- The Game</title>
   </head>
   <body>
     <noscript>
-      <strong>Beat the Berg! funktioniert nur mit JavaScript. Bitte erlaube JavaScript um fortzufahren.</strong>
+      <strong
+        >Beat the Berg! funktioniert nur mit JavaScript. Bitte erlaube
+        JavaScript um fortzufahren.</strong
+      >
     </noscript>
 
     <!-- add some info at the top of the page -->
-	  <a href="./index.html" id="logo" style="display:none"><img class="topleft" src="./logos/logo1.png"></a>
+    <a href="./index.html" id="logo" style="display:none"
+      ><img class="topleft" src="./logos/logo1.png"
+    /></a>
 
     <div class="topmiddle" id="messageBox" style="display:none">
-      <p>Finde den nächsten Marker und scanne ihn, um den nächsten Hinweis zu erhalten!</p>
+      <p>
+        Finde den nächsten Marker und scanne ihn, um den nächsten Hinweis zu
+        erhalten!
+      </p>
     </div>
 
-    <div class="lds-ring" id="loadingSpinner"><div></div><div></div><div></div><div></div></div>
+    <div class="lds-ring" id="loadingSpinner">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
 
     <div id="game" style="display:none">
-    <!-- Define your 3d scene and enabled ar.js -->
-    <a-scene embedded vr-mode-ui="enabled: false" arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 4x4; debugUIEnabled: false' checkstate>
-      <!-- Define a static camera -->
-      <a-camera-static></a-camera-static>
-      <a-assets checkstate>
-        <img id="asset-0" src="./milestone-images/4962.png">
-	      <img id="asset-1" src="./milestone-images/2002.png">
-	      <img id="asset-2" src="./milestone-images/Schwarzes Brett.png">
-	      <img id="asset-3" src="./milestone-images/Treppen.png">
-	      <img id="asset-4" src="./milestone-images/auge_02.png">
-	      <img id="asset-5" src="./milestone-images/boule_02.png">
-	      <img id="asset-6" src="./milestone-images/buegel.png">
-	      <img id="asset-7" src="./milestone-images/butt.png">
-	      <img id="asset-8" src="./milestone-images/dart.png">
-	      <img id="asset-9" src="./milestone-images/efeu.png">
-	      <img id="asset-10" src="./milestone-images/feuer_02.png">
-        <img id="asset-11" src="./milestone-images/frisbee.png">
+      <!-- Define your 3d scene and enabled ar.js -->
+      <a-scene
+        embedded
+        vr-mode-ui="enabled: false"
+        arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 4x4; debugUIEnabled: false"
+        checkstate
+      >
+        <!-- Define a static camera -->
+        <a-camera-static></a-camera-static>
+        <a-assets checkstate>
+          <img id="asset-0" src="./milestone-images/4962.png" />
+          <img id="asset-1" src="./milestone-images/2002.png" />
+          <img id="asset-2" src="./milestone-images/Schwarzes Brett.png" />
+          <img id="asset-3" src="./milestone-images/Treppen.png" />
+          <img id="asset-4" src="./milestone-images/auge_02.png" />
+          <img id="asset-5" src="./milestone-images/boule_02.png" />
+          <img id="asset-6" src="./milestone-images/buegel.png" />
+          <img id="asset-7" src="./milestone-images/butt.png" />
+          <img id="asset-8" src="./milestone-images/dart.png" />
+          <img id="asset-9" src="./milestone-images/efeu.png" />
+          <img id="asset-10" src="./milestone-images/feuer_02.png" />
+          <img id="asset-11" src="./milestone-images/frisbee.png" />
 
-	      <img id="asset-13" src="./milestone-images/hansenbergmodell.png">
+          <img id="asset-13" src="./milestone-images/hansenbergmodell.png" />
 
-	      <img id="asset-15" src="./milestone-images/kant.png">
-	      <img id="asset-16" src="./milestone-images/kruecke_04.png">
-	      <img id="asset-17" src="./milestone-images/popcorn.png">
-	      <img id="asset-18" src="./milestone-images/schirm_02.png">
-	      <img id="asset-19" src="./milestone-images/tapete.png">
-	      <img id="asset-20" src="./milestone-images/turm_03.png">
-	      <img id="asset-21" src="./milestone-images/yinyang.png">
-        <img id="asset-22" src="./milestone-images/zzz_02.png">
-        <img id="black" src="./milestone-images/black.jpg">
-      </a-assets>
+          <img id="asset-15" src="./milestone-images/kant.png" />
+          <img id="asset-16" src="./milestone-images/kruecke_04.png" />
+          <img id="asset-17" src="./milestone-images/popcorn.png" />
+          <img id="asset-18" src="./milestone-images/schirm_02.png" />
+          <img id="asset-19" src="./milestone-images/tapete.png" />
+          <img id="asset-20" src="./milestone-images/turm_03.png" />
+          <img id="asset-21" src="./milestone-images/yinyang.png" />
+          <img id="asset-22" src="./milestone-images/zzz_02.png" />
+          <img id="black" src="./milestone-images/black.jpg" />
+        </a-assets>
 
+        <a-marker
+          type="barcode"
+          value="642"
+          id="marker-barcode-0"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-0" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 0 360"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="643"
+          id="marker-barcode-1"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-1" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
 
-      <a-marker type='barcode' value='642' id='marker-barcode-0' registerevents>
-        <a-entity>
-          <a-image src="#asset-0" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 0 360"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-      </a-marker>
-	    <a-marker type='barcode' value='643' id='marker-barcode-1' registerevents>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="644"
+          id="marker-barcode-2"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-2" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="645"
+          id="marker-barcode-3"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-3" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="646"
+          id="marker-barcode-4"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-4" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="647"
+          id="marker-barcode-5"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-5" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
 
+        <a-marker
+          type="barcode"
+          value="648"
+          id="marker-barcode-6"
+          registerevents
+        >
+          <a-entity
+            scale="0.05 0.05 0.05"
+            rotation="0 180 0"
+            obj-model="obj: url(./milestone-images/hanger/10922_Coat_hangers_v3_LOD3.obj); mtl: url(./milestone-images/hanger/10922_Coat_hangers_v3_LOD3.mtl)"
+          >
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 180 360"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+        </a-marker>
 
-        <a-entity >
-          <a-image src="#asset-1" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='644' id='marker-barcode-2' registerevents>
-        <a-entity>
-          <a-image src="#asset-2" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='645' id='marker-barcode-3' registerevents>
-        <a-entity>
-          <a-image src="#asset-3" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='646' id='marker-barcode-4' registerevents>
-        <a-entity>
-          <a-image src="#asset-4" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='647' id='marker-barcode-5' registerevents>
-        <a-entity>
-          <a-image src="#asset-5" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-
-      <a-marker type='barcode' value='648' id='marker-barcode-6' registerevents>
-        <a-entity  scale="0.05 0.05 0.05" rotation="0 180 0" obj-model="obj: url(./milestone-images/hanger/10922_Coat_hangers_v3_LOD3.obj); mtl: url(./milestone-images/hanger/10922_Coat_hangers_v3_LOD3.mtl)">
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 180 360"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-      </a-marker>
-
-	    <a-marker type='barcode' value='649' id='marker-barcode-7' registerevents>
-        <a-entity>
-          <a-image src="#asset-7" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='650' id='marker-barcode-8' registerevents>
-        <a-entity>
-          <a-image src="#asset-8" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='651' id='marker-barcode-9' registerevents>
-        <a-entity>
-          <a-image src="#asset-9" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='652' id='marker-barcode-10' registerevents>
-        <a-entity>
-          <a-image src="#asset-10" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='653' id='marker-barcode-11' registerevents>
-        <a-entity>
-          <a-image src="#asset-11" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='654' id='marker-barcode-12' registerevents>
-        <a-entity>
-          <a-sphere src="./milestone-images/textures/earth-texture.jpg" scale="0.5 0.5 0.5" ></a-sphere>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='655' id='marker-barcode-13' registerevents>
-        <a-entity>
-          <a-image src="#asset-13" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='656' id='marker-barcode-14' registerevents>
-        <a-entity scale="0.03 0.03 0.03" obj-model="obj: url(./milestone-images/tire/Car_tire_2.obj);">
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='657' id='marker-barcode-15' registerevents>
-        <a-entity>
-          <a-image src="#asset-15" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='658' id='marker-barcode-16' registerevents>
-        <a-entity>
-          <a-image src="#asset-16" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='659' id='marker-barcode-17' registerevents>
-        <a-entity>
-          <a-image src="#asset-17" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='660' id='marker-barcode-18' registerevents>
-        <a-entity scale="0.03 0.03 0.03" rotation="270 0 0" obj-model="obj: url(./milestone-images/umbrella/12981_umbrella_v1_l2.obj); mtl: url(./milestone-images/umbrella/12981_umbrella_v1_l2.mtl)">
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='661' id='marker-barcode-19' registerevents>
-        <a-entity>
-          <a-image src="#asset-19" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='662' id='marker-barcode-20' registerevents>
-        <a-entity>
-          <a-image src="#asset-20" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='663' id='marker-barcode-21' registerevents>
-        <a-entity>
-          <a-image src="#asset-21" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-	    <a-marker type='barcode' value='664' id='marker-barcode-22' registerevents>
-        <a-entity>
-          <a-image src="#asset-22" side="double"></a-image>
-          <a-animation attribute="rotation"
-                      dur="10000"
-                      fill="none"
-                      to="0 360 0"
-                      repeat="indefinite"></a-animation>
-        </a-entity>
-        <!-- <a-entity gltf-model="#tree"></a-entity> -->
-      </a-marker>
-    </a-scene>
-
-  </div>
+        <a-marker
+          type="barcode"
+          value="649"
+          id="marker-barcode-7"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-7" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="650"
+          id="marker-barcode-8"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-8" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="651"
+          id="marker-barcode-9"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-9" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="652"
+          id="marker-barcode-10"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-10" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="653"
+          id="marker-barcode-11"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-11" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="654"
+          id="marker-barcode-12"
+          registerevents
+        >
+          <a-entity>
+            <a-sphere
+              src="./milestone-images/textures/earth-texture.jpg"
+              scale="0.5 0.5 0.5"
+            ></a-sphere>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="655"
+          id="marker-barcode-13"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-13" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="656"
+          id="marker-barcode-14"
+          registerevents
+        >
+          <a-entity
+            scale="0.03 0.03 0.03"
+            obj-model="obj: url(./milestone-images/tire/Car_tire_2.obj);"
+          >
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="657"
+          id="marker-barcode-15"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-15" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="658"
+          id="marker-barcode-16"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-16" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="659"
+          id="marker-barcode-17"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-17" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="660"
+          id="marker-barcode-18"
+          registerevents
+        >
+          <a-entity
+            scale="0.03 0.03 0.03"
+            rotation="270 0 0"
+            obj-model="obj: url(./milestone-images/umbrella/12981_umbrella_v1_l2.obj); mtl: url(./milestone-images/umbrella/12981_umbrella_v1_l2.mtl)"
+          >
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="661"
+          id="marker-barcode-19"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-19" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="662"
+          id="marker-barcode-20"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-20" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="663"
+          id="marker-barcode-21"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-21" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+        <a-marker
+          type="barcode"
+          value="664"
+          id="marker-barcode-22"
+          registerevents
+        >
+          <a-entity>
+            <a-image src="#asset-22" side="double"></a-image>
+            <a-animation
+              attribute="rotation"
+              dur="10000"
+              fill="none"
+              to="0 360 0"
+              repeat="indefinite"
+            ></a-animation>
+          </a-entity>
+          <!-- <a-entity gltf-model="#tree"></a-entity> -->
+        </a-marker>
+      </a-scene>
+    </div>
   </body>
 </html>
