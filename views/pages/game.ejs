@@ -52,6 +52,10 @@
       <!-- Define a static camera -->
       <a-camera-static></a-camera-static>
       <a-assets checkstate>
+        <!-- 3D Locked Padlock -->
+        <a-asset-item id="locked-obj" src="./milestone-images/locked.obj"></a-asset-item>
+        <a-asset-item id="locked-mtl" src="./milestone-images/locked.mtl"></a-asset-item>
+
         <img id="asset-0" src="./milestone-images/4962.png">
 	      <img id="asset-1" src="./milestone-images/2002.png">
 	      <img id="asset-2" src="./milestone-images/Schwarzes Brett.png">
@@ -61,7 +65,8 @@
 	      <!-- 3D hanger -->
 	      <img id="asset-7" src="./milestone-images/butt.png">
 	      <img id="asset-8" src="./milestone-images/dart.png">
-	      <img id="asset-9" src="./milestone-images/efeu.png">
+        <!-- 3D efeu-->
+        <a-asset-item id="asset-9" src="./milestone-images/efeu.dae"></a-asset-item>
 	      <img id="asset-10" src="./milestone-images/feuer_02.png">
         <img id="asset-11" src="./milestone-images/frisbee.png">
         <!--Sphere-->
@@ -76,7 +81,20 @@
 	      <img id="asset-21" src="./milestone-images/yinyang.png">
         <img id="asset-22" src="./milestone-images/zzz_02.png">
       </a-assets>
-
+      <!--
+        //DAS BEI ALLEN GESPERRTEN MARKERN EINFUEGEN
+        <a-marker type='barcode' value='' id='locked' registerevents>
+        <a-entity>
+          <a-entity obj-model="obj: #locked-obj; mtl: #locked-mtl" scale="0.01 0.01 0.01" rotation="270 0 0">
+            <a-animation attribute="rotation"
+                      dur="10000"
+                      fill="none"
+                      to="0 0 360"
+                      repeat="indefinite"></a-animation>
+          </a-entity>
+        </a-entity>
+      </a-marker>
+      -->
       <a-marker type='barcode' value='642' id='marker-barcode-0' registerevents>
         <a-entity>
           <a-image src="#asset-0" side="double"></a-image>
@@ -178,8 +196,7 @@
         <!-- <a-entity gltf-model="#tree"></a-entity> -->
       </a-marker>
 	    <a-marker type='barcode' value='651' id='marker-barcode-9' registerevents>
-        <a-entity>
-          <a-image src="#asset-9" side="double"></a-image>
+        <a-entity collada-model="#asset-9">
           <a-animation attribute="rotation"
                       dur="10000"
                       fill="none"
