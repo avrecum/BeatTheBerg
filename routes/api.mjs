@@ -16,7 +16,7 @@ export const getRouter = (firebaseRef) => {
 
 /**
  * GET Leaderboard
- * RETURNS leaderboard (top 20) as {name, time}
+ * RETURNS leaderboard (top 20) as [{name, time}]
  *         requested user (?name=username) as {name, time}
  *         user rank as int
  */
