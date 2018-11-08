@@ -147,9 +147,10 @@ form{
 button.btn.btn-primary{
 	background-color: #2E4A83;
 	border-color: #2E4A83;
+	margin-bottom: 20px;
 }
 
-button.btn.btn-primary.login{
+button.btn.btn-primary.white{
 	background-color:#fff;
 	color: #2E4A83;
 	border-color: #2E4A83;

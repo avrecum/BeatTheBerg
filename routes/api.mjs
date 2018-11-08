@@ -1,5 +1,5 @@
-import express from "express";
-import axios from "axios";
+import express from 'express';
+import axios from 'axios';
 const router = express.Router();
 
 let database;
@@ -10,8 +10,8 @@ let firebase;
 export const getRouter = firebaseRef => {
   firebase = firebaseRef;
   database = firebase.database();
-  userDB = database.ref("users");
-  leaderboardDB = database.ref("leaderboard");
+  userDB = database.ref('users');
+  leaderboardDB = database.ref('leaderboard');
   return router;
 };
 
@@ -21,7 +21,7 @@ export const getRouter = firebaseRef => {
  *         requested user (?name=username) as {name, time}
  *         user rank as int
  */
-router.get("/leaderboard", async (req, res, next) => {
+router.get('/leaderboard', async (req, res, next) => {
   let name = req.query.name || null;
   console.log(name);
 
@@ -45,17 +45,17 @@ router.get("/leaderboard", async (req, res, next) => {
       rank++;
       return true;
     } else {
-      res.json({ status: 500, err: "No data! " });
+      res.json({ status: 500, err: 'No data! ' });
       return false;
     }
   };
 
   const errData = error => {
-    console.error("Something went wrong.");
+    console.error('Something went wrong.');
     console.error(error);
   };
 
-  let dataList = await leaderboardDB.on("value", getData, errData);
+  let dataList = await leaderboardDB.on('value', getData, errData);
 
   // Return project if availible
   if (dataList) {
@@ -63,13 +63,13 @@ router.get("/leaderboard", async (req, res, next) => {
       status: 200,
       data: { leaderboard, user, rank }
     });
-  } else res.json({ status: 500, err: "Error while getting leaderboard" });
+  } else res.json({ status: 500, err: 'Error while getting leaderboard' });
 });
 
 /**
  * POST Leaderboard
  */
-router.post("/leaderboard", async (req, res, next) => {
+router.post('/leaderboard', async (req, res, next) => {
   let name = req.body.name;
   let time = Number(req.body.time);
 
@@ -79,20 +79,20 @@ router.post("/leaderboard", async (req, res, next) => {
   };
 
   let dbLeaderboardEntry = leaderboardDB.child(user.name).set(user);
-  console.log("Data: Firebase generated key: " + dbLeaderboardEntry.key);
+  console.log('Data: Firebase generated key: ' + dbLeaderboardEntry.key);
 
   if (dbLeaderboardEntry)
     res.json({ status: 200, data: dbLeaderboardEntry.key });
-  else res.json({ status: 500, err: "Error while adding leaderboard entry!" });
+  else res.json({ status: 500, err: 'Error while adding leaderboard entry!' });
 });
 
 /**
  * POST login user
  */
-router.post("/user/login", (req, res) => {
+router.post('/user/login', (req, res) => {
   const user = req.body.user;
   try {
-    userDB.on("value", data => {
+    userDB.on('value', data => {
       let users = data.val();
       if (users) {
         if (users[user]) {
@@ -106,7 +106,7 @@ router.post("/user/login", (req, res) => {
         } else {
           res.json({
             status: 500,
-            data: "User not in database"
+            data: 'User not in database'
           });
         }
       }
@@ -116,47 +116,58 @@ router.post("/user/login", (req, res) => {
   }
 });
 
+const hasUser = user => {
+  return new Promise((resolve, reject) => {
+    try {
+      userDB.on('value', data => {
+        let users = data.val();
+        if (users) {
+          if (users[user]) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        }
+      });
+    } catch (err) {
+      console.error(err);
+      resolve(false);
+    }
+  });
+};
+
 /**
  * POST add user to user database
  */
-router.post("/user/register", (req, res) => {
+router.post('/user/register', async (req, res) => {
   const user = req.body.user;
   try {
-    userDB.on("value", data => {
-      let users = data.val();
-      if (users) {
-        if (users[user]) {
-          req.session.progress = users[user].progressCounter;
-          req.session.startTime = users[user].startTime;
-          req.session.name = user;
-          res.json({
-            status: 200,
-            data: {
-              progress: users[user].progressCounter,
-              startTime: users[user].startTime
-            }
-          });
-        } else {
-          let dbUserEntry = userDB.child(user).set({
-            startTime: Date.now(),
-            progressCounter: 0
-          });
-          console.log("Data: Firebase generated key: " + dbUserEntry.key);
-          res.json({ status: 200 });
-        }
-      }
-    });
+    const response = await hasUser(user);
+    if (!response) {
+      let dbUserEntry = userDB.child(user).set({
+        startTime: Date.now(),
+        progressCounter: 0
+      });
+      console.log('Data: Firebase generated key: ' + dbUserEntry.key);
+    }
+    res.json({ status: 200 });
   } catch (err) {
     console.error(err);
+    res.json({ status: 500 });
   }
+});
 
-  res.redirect("/game");
+router.get('/user/logout', (req, res) => {
+  req.session.progress = undefined;
+  req.session.startTime = undefined;
+  req.session.user = undefined;
+  res.send('success');
 });
 
 /**
  * GET Progress
  */
-router.get("/progress", async (req, res, next) => {
+router.get('/progress', async (req, res, next) => {
   let name = req.query.name || null;
   console.log(name);
 
@@ -169,21 +180,21 @@ router.get("/progress", async (req, res, next) => {
         let tmp = await data.val();
         progress = parseInt(tmp[name].progressCounter);
       } else {
-        res.json({ status: 500, err: "No data! " });
+        res.json({ status: 500, err: 'No data! ' });
       }
     };
 
     const errData = error => {
-      console.error("Something went wrong.");
+      console.error('Something went wrong.');
       console.error(error);
     };
 
     dataList = await userDB
       .orderByKey()
       .equalTo(name)
-      .on("value", getData, errData);
+      .on('value', getData, errData);
   } catch (err) {
-    res.json({ status: 500, err: "Error while getting progress" });
+    res.json({ status: 500, err: 'Error while getting progress' });
   }
 
   // Return progress
@@ -193,7 +204,7 @@ router.get("/progress", async (req, res, next) => {
 /**
  * UPDATE progress
  */
-router.post("/progress", async (req, res, next) => {
+router.post('/progress', async (req, res, next) => {
   const name = req.body.name;
 
   const updateProgress = async progress => {
@@ -205,7 +216,7 @@ router.post("/progress", async (req, res, next) => {
   };
 
   axios
-    .get("http://localhost:5000/api/progress?name=" + name)
+    .get('http://localhost:5000/api/progress?name=' + name)
     .then(function(response) {
       console.log(response.data);
       updateProgress(response.data);
