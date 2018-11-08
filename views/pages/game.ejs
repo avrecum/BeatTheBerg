@@ -13,6 +13,7 @@
         marker.addEventListener('markerFound', async function() {
           let markerId = marker.id;
           await axios.post('/api/progress');
+          document.querySelector(".cursor").style="margin-top: 100px;";
         });
         marker.addEventListener('markerLost', function() {
           var markerId = marker.id;
@@ -39,13 +40,13 @@
     </noscript>
 
     <!-- add some info at the top of the page -->
-	  <a href="./index.html" id="logo" style="display:none"><img class="topleft" src="./logos/logo1.png"></a>
+	  <a href="./index.html" id="logo"><img class="topleft" src="./logos/logo1.png"></a>
 
-    <div class="topmiddle" id="messageBox" style="display:none">
+    <div class="topmiddle" id="messageBox">
       <p>Finde den nächsten Marker und scanne ihn, um den nächsten Hinweis zu erhalten!</p>
     </div>
 
-    <button class="btn btn-success cursor" style="margin-top: 100px;" onclick="console.log('hi')">
+    <button class="btn btn-success cursor" style="margin-top: 100px; display:none;" onclick="location.reload()">
       Nächsten Hinweis freischalten!
     </button>
 
