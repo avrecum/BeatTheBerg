@@ -66,11 +66,11 @@ router.post('/leaderboard', (req, res, next) => {
       time: 100
   };
 
-  let dbUser = leaderboardDB.push(user, (a) => console.log(a));
-  console.log('Data: Firebase generated key: ' + dbUser.key);
+  let dbLeaderboardEntry = leaderboardDB.push(user, (a) => console.log(a));
+  console.log('Data: Firebase generated key: ' + dbLeaderboardEntry.key);
 
-  if(dbUser)
-    res.json({ status: 200, data: dbUser.key });
+  if(dbLeaderboardEntry)
+    res.json({ status: 200, data: dbLeaderboardEntry.key });
   else
     res.json({ status: 500, err: "Error while adding user" });
 });
@@ -80,6 +80,24 @@ router.post('/leaderboard', (req, res, next) => {
  */
 router.get('/user', (req, res, next) => {
   // fetch data
+});
+
+/**
+ * POST add user to user database
+ */
+router.post('/registeruser', (req, res) => {
+  const user = req.body.user;
+  try {
+    let dbUserEntry = userDB.child(user).setValue({
+      startTime: Date.now(),
+      progressCounter: 0
+    });
+    console.log('Data: Firebase generated key: ' + dbUserEntry.key);
+  } catch (err) {
+    console.error(err);
+  }
+
+  res.redirect('/game');
 });
 
 /**
