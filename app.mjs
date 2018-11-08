@@ -10,8 +10,6 @@ import admin from "firebase-admin";
 
 import serviceAccount from "./secrets.json";
 
-import config from "./config.js";
-
 import { getRouter } from "./routes/api.mjs";
 import head from "./views/head.mjs";
 
