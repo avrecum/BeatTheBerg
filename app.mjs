@@ -18,7 +18,17 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(path.resolve(), 'frontend/')));
+app.set('view engine', 'ejs');
+
+// index page 
+app.get('/', function(req, res) {
+  res.render('index');
+});
+
+// about page 
+app.get('/about', function(req, res) {
+  res.render('about');
+});
 
 // Init firebase
 const ref = firebase.initializeApp(config);
