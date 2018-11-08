@@ -6,12 +6,14 @@ let database;
 let leaderboardDB;
 let userDB;
 let firebase;
+let storyOrder;
 
-export const getRouter = firebaseRef => {
+export const getRouter = (firebaseRef, storyOrderRef) => {
   firebase = firebaseRef;
   database = firebase.database();
   userDB = database.ref('users');
   leaderboardDB = database.ref('leaderboard');
+  storyOrder = storyOrderRef;
   return router;
 };
 
@@ -169,7 +171,7 @@ router.get('/user/logout', (req, res) => {
  */
 router.get('/progress', async (req, res, next) => {
   let name = req.query.user || null;
-
+  console.log('Name: ',name);
   let progress;
   let dataList;
 
@@ -178,6 +180,9 @@ router.get('/progress', async (req, res, next) => {
       if (data.val()) {
         let tmp = await data.val();
         progress = parseInt(tmp[name].progressCounter);
+        console.log(progress);
+        // Return progress
+        res.json({ status: 200, data: progress });
       } else {
         res.json({ status: 500, err: 'No data! ' });
       }
@@ -193,11 +198,10 @@ router.get('/progress', async (req, res, next) => {
       .equalTo(name)
       .on('value', getData, errData);
   } catch (err) {
+    console.log('Error: ', err.message)
     res.json({ status: 500, err: 'Error while getting progress' });
   }
 
-  // Return progress
-  res.json({ status: 200, data: progress });
 });
 
 /**
@@ -205,24 +209,29 @@ router.get('/progress', async (req, res, next) => {
  */
 router.post('/progress', async (req, res, next) => {
   const user = req.session.user;
+  const marker = req.body.marker;
 
-  const updateProgress = async progress => {
-    let updateProg = parseInt(progress.data);
-    console.log(updateProg);
-    updateProg++;
-    await userDB.child(user).update({ progressCounter: updateProg });
-    res.json({ status: 200, data: updateProg });
-  };
+  if (marker) {
+    const updateProgress = async progress => {
+      let updateProg = progress.data;
+      updateProg++;
+      await userDB.child(user).update({ progressCounter: updateProg });
+      res.json({ status: 200, data: updateProg });
+    };
 
-  axios
-    .get('http://localhost:5000/api/progress')
-    .then(function(response) {
-      console.log(response.data);
-      updateProgress(response.data);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+    axios
+      .get(`http://localhost:5000/api/progress?user=${user}`)
+      .then(function(response) {
+        if (marker === Number(storyOrder[response.data.data-1])) {
+          updateProgress(response.data);
+        } else {
+          res.status(304);
+          res.json({ status: 304 });
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
 
-  // Return new progress
 });

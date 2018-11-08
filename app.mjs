@@ -52,7 +52,7 @@ app.use(express.static(path.resolve() + '/public'));
 
 var appendLocalsToUseInViews = function(req, res, next)
 {
-   //append request and session to use directly in views and avoid passing around needless stuff
+    // append request and session to use directly in views and avoid passing around needless stuff
     res.locals.request = req;
 
     if(req.session != null && req.session.user != null)
@@ -89,7 +89,7 @@ app.get('/', function(req, res) {
 // game page
 app.get('/game', async function(req, res) {
   const response = await axios.get(`http://localhost:5000/api/progress?user=${res.locals.request.session.user}`);
-  let userProgress = response.data.data;
+  let userProgress = response.data.data - 1;
   let currentMilestone = storyOrder[userProgress];
   let current_asset =
     currentMilestone > 0
@@ -114,7 +114,7 @@ app.get('/leaderboard', function(req, res) {
 });
 
 // Router
-app.use('/api/', getRouter(ref));
+app.use('/api/', getRouter(ref, storyOrder));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
