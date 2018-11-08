@@ -5,6 +5,7 @@
     <script src="./js/aframe.min.js"></script>
     <script src='./js/aframe-ar.js'></script>
     <script src='./js/main.js'></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="./css/style.css" rel="stylesheet">
     <script>
       AFRAME.registerComponent('registerevents', {
@@ -79,7 +80,6 @@
         <img id="black" src="./milestone-images/black.jpg">
       </a-assets>
 
-
       <a-marker type='barcode' value='642' id='marker-barcode-0' registerevents>
         <a-entity>
           <a-image src="#asset-0" side="double"></a-image>
@@ -93,7 +93,7 @@
 	    <a-marker type='barcode' value='643' id='marker-barcode-1' registerevents>
 
 
-        <a-entity >
+        <a-entity>
           <a-image src="#asset-1" side="double"></a-image>
           <a-animation attribute="rotation"
                       dur="10000"
@@ -148,17 +148,17 @@
         </a-entity>
         <!-- <a-entity gltf-model="#tree"></a-entity> -->
       </a-marker>
-
-      <a-marker type='barcode' value='648' id='marker-barcode-6' registerevents>
-        <a-entity  scale="0.05 0.05 0.05" rotation="0 180 0" obj-model="obj: url(./milestone-images/hanger/10922_Coat_hangers_v3_LOD3.obj); mtl: url(./milestone-images/hanger/10922_Coat_hangers_v3_LOD3.mtl)">
+	    <a-marker type='barcode' value='648' id='marker-barcode-6' registerevents>
+        <a-entity>
+          <a-image src="#asset-6" side="double"></a-image>
           <a-animation attribute="rotation"
                       dur="10000"
                       fill="none"
-                      to="0 180 360"
+                      to="0 360 0"
                       repeat="indefinite"></a-animation>
         </a-entity>
+        <!-- <a-entity gltf-model="#tree"></a-entity> -->
       </a-marker>
-
 	    <a-marker type='barcode' value='649' id='marker-barcode-7' registerevents>
         <a-entity>
           <a-image src="#asset-7" side="double"></a-image>

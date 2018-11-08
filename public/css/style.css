@@ -140,6 +140,10 @@ p {
 	background-color: #fff;
 }
 
+form{
+	margin-bottom: 20px;
+}
+
 button.btn.btn-primary{
 	background-color: #2E4A83;
 	border-color: #2E4A83;
@@ -151,6 +155,15 @@ button.btn.btn-primary.login{
 	border-color: #2E4A83;
 	float: right;
 }
+
+.progress{
+	height: 20px;
+}
+
+.progress-bar{
+	background-color: #2E4A83;
+}
+
 .lds-ring {
 	display: block;
 	position: relative;

@@ -3,9 +3,12 @@ import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-import debug from "debug";
-debug("beattheberg:server");
+import debugModule from "debug";
+const debug = debugModule("beattheberg:server");
 import http from "http";
+import session from "express-session";
+import FirebaseStoreModule from "connect-session-firebase";
+const FirebaseStore = FirebaseStoreModule(session);
 import admin from "firebase-admin";
 
 import serviceAccount from "./secrets.json";
@@ -18,7 +21,26 @@ const app = express();
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Init firebase
+const ref = admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://beat-the-berg.firebaseio.com"
+});
+
+// Session handling
 app.use(cookieParser());
+app.use(
+  session({
+    store: new FirebaseStore({
+      database: ref.database()
+    }),
+    secret: "keyboard cat",
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
 app.set("view engine", "ejs");
 app.use(express.static(path.resolve() + "/public"));
 
@@ -43,12 +65,6 @@ app.get("/leaderboard", function(req, res) {
   });
 });
 
-// Init firebase
-const ref = admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://beat-the-berg.firebaseio.com"
-});
-
 // Router
 app.use("/api/", getRouter(ref));
 
@@ -63,8 +79,9 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  // render the error page
-  res.json({ error: err.message });
+  // render tpages/he error page
+  res.status(err.status || 500);
+  res.render("pages/error");
 });
 
 /**
