@@ -81,13 +81,22 @@
       </a-assets>
 
 
-      <a-marker type='barcode' value='642' id='marker-barcode-0' registerevents>
+      <!--<a-marker type='barcode' value='642' id='marker-barcode-0' registerevents>
         <a-entity>
           <a-image src="#asset-0" side="double"></a-image>
           <a-animation attribute="rotation"
                       dur="10000"
                       fill="none"
                       to="0 0 360"
+                      repeat="indefinite"></a-animation>
+        </a-entity>
+      </a-marker>-->
+      <a-marker type='barcode' value='642' id='marker-barcode-0' registerevents>
+        <a-entity rotation="0 180 0" scale="0.05 0.05 0.05" obj-model="obj: url(./milestone-images/schloss/13020_Aquarium_Castle_v1_L1.obj); mtl: url(./milestone-images/schloss/13020_Aquarium_Castle_v1_L1.mtl)">
+          <a-animation attribute="rotation"
+                      dur="10000"
+                      fill="none"
+                      to="0 180 -360"
                       repeat="indefinite"></a-animation>
         </a-entity>
       </a-marker>
