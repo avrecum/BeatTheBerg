@@ -105,7 +105,7 @@ router.post("/user/login", (req, res) => {
         } else {
           res.json({
             status: 500,
-            data: "User not in database"
+            err: "User not in database"
           });
         }
       }
