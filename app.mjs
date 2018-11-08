@@ -3,8 +3,8 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import debug from 'debug';
-debug('beattheberg:server');
+import debugModule from 'debug';
+const debug = debugModule('beattheberg:server');
 import http from 'http';
 import session from 'express-session';
 import FirebaseStoreModule from 'connect-session-firebase'
@@ -61,9 +61,6 @@ app.get('/leaderboard', function(req, res) {
   });
 });
 
-
-// Init firebase
-const ref = firebase.initializeApp(config);
 
 // Router
 app.use('/api/', getRouter(ref));
