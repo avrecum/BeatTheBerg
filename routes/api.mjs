@@ -82,13 +82,6 @@ router.post('/leaderboard', (req, res, next) => {
 });
 
 /**
- * GET UserData
- */
-router.get('/user', (req, res, next) => {
-  // fetch data
-});
-
-/**
  * POST login user
  */
 router.post('/user/login', (req, res) => {
@@ -98,7 +91,7 @@ router.post('/user/login', (req, res) => {
       let users = data.val();
       if (users) {
         if (users[user]) {
-          
+
         }
       }
     });
@@ -120,7 +113,7 @@ router.post('/user/login', (req, res) => {
 router.post('/user/register', (req, res) => {
   const user = req.body.user;
   try {
-    
+
     let dbUserEntry = userDB.child(user).set({
       startTime: Date.now(),
       progressCounter: 0
@@ -134,8 +127,22 @@ router.post('/user/register', (req, res) => {
 });
 
 /**
+ * GET Progress
+ */
+router.get('/progress', (req, res, next) => {
+  // fetch data
+});
+
+/**
  * POST UserData
  */
-router.post('/user', (req, res, next) => {
+router.post('/progress', (req, res, next) => {
   // post data
 });
+
+/**
+ * UPDATE progress
+ */
+ router.update('/progress', (req, res, next) => {
+   // post data
+ });
