@@ -46,9 +46,22 @@ app.use(express.static(path.resolve() + "/public"));
 
 // index page
 app.get("/", function(req, res) {
-  res.render("pages/index", {
-    head_template: head
-  });
+  const { progress, startTime, name } = req.session;
+  if (progress == null) {
+    res.render("pages/index", {
+      head_template: head,
+      user: false
+    });
+  } else {
+    res.render("pages/index", {
+      head_template: head,
+      user: {
+        name,
+        progress,
+        startTime
+      }
+    });
+    }
 });
 
 // game page
