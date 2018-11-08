@@ -12,8 +12,6 @@ import FirebaseStoreModule from 'connect-session-firebase';
 const FirebaseStore = FirebaseStoreModule(session);
 import admin from 'firebase-admin';
 
-import serviceAccount from './secrets.json';
-
 import { getRouter } from './routes/api.mjs';
 import head from './views/head.mjs';
 import markers from './views/markers.mjs';
@@ -23,8 +21,6 @@ dotenv.config();
 
 const app = express();
 
-console.log(JSON.stringify(serviceAccount));
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,8 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 // Init firebase
 const projectId = process.env.FIREBASE_PROJECTID;
 const emailPrefix = process.env.FIREBASE_CLIENTEMAIL;
-const key = process.env.FIREBASE_KEY
-"a".replace(/\\n/g, '\n');
+const key = process.env.FIREBASE_KEY.replace(/\\n/g, '\n');
 
 const ref = admin.initializeApp({
   credential: admin.credential.cert({
