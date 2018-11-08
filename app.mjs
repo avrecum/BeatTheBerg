@@ -104,14 +104,17 @@ app.get('/game', async function(req, res) {
   const response = await axios.get(`http://localhost:5000/api/progress?user=${res.locals.request.session.user}`);
   let userProgress = response.data.data - 1;
   let currentMilestone = storyOrder[userProgress];
+  if(currentMilestone==undefined){
+    currentMilestone = 0;
+  }
   let current_asset =
     currentMilestone > 0
       ? milestones[currentMilestone] + milestones[currentMilestone - 1]
       : milestones[currentMilestone];
   let current_marker =
     currentMilestone > 0
-      ? markers[currentMilestone] + markers[currentMilestone - 1]
-      : milestones[currentMilestone];
+      ? markers[currentMilestone].replace("eventListener", "currentmarker") + markers[currentMilestone - 1].replace("eventListener", "previousmarker")
+      : markers[currentMilestone].replace("eventListener", "currentmarker");
   res.render('pages/game', {
     head_template: head,
     current_asset,
