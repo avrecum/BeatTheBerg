@@ -99,9 +99,6 @@ body {
 	-ms-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
-	width: 100vw !important;
-	height: 100vh !important;
-	overflow: hidden;
 }
 
 article {
