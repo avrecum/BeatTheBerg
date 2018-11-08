@@ -36,6 +36,7 @@ router.get('/leaderboard', async (req, res, next) => {
       leaderboard = leaderboard.sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).slice(0, 20);
       user = leaderboard[0].find((el) => el.name === name);
       rank = leaderboard[0].indexOf(leaderboard[0].sort((a, b) => parseFloat(a.time) - parseFloat(b.time)).find((el) => el.name === name));
+      rank++;
       return true;
     } else {
       res.json({ status: 500, err: "No data! " });
