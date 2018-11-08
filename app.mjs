@@ -21,14 +21,24 @@ import milestones from './views/milestones.mjs';
 
 const app = express();
 
+console.log(JSON.stringify(serviceAccount));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Init firebase
+const projectId = process.env.FIREBASE_PROJECTID;
+const emailPrefix = process.env.FIREBASE_CLIENTEMAIL;
+const key = process.env.FIREBASE_KEY.replace(/\\n/g, '\n');
+
 const ref = admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://beat-the-berg.firebaseio.com'
+  credential: admin.credential.cert({
+    projectId,
+    clientEmail: `${emailPrefix}@${projectId}.iam.gserviceaccount.com`,
+    privateKey: `-----BEGIN PRIVATE KEY-----\n${key}\n-----END PRIVATE KEY-----\n`
+  }),
+  databaseURL: `https://${projectId}.firebaseio.com`
 });
 
 // story mode order
