@@ -16,32 +16,45 @@ export const getRouter = (firebaseRef) => {
 
 /**
  * GET Leaderboard
+ * RETURNS leaderboard (top 20) as [{name, time}]
+ *         requested user (?name=username) as {name, time}
+ *         user rank as int
  */
 router.get('/leaderboard', async (req, res, next) => {
 
-  const leaderboard = [];
+  let name = req.query.name || null;
+  console.log(name);
 
-  
-  const getData = (data) => {
+  let leaderboard = [];
+  let rank;
+  let user;
+
+  const getData = async (data) => {
     if(data.val()) {
-      let tmp = data.val();
+      let tmp = await data.val();
       leaderboard.push(Object.values(tmp));
+      leaderboard = leaderboard.sort((a, b) => parseFloat(b.time) - parseFloat(a.time)).slice(0, 20);
+      user = leaderboard[0].find((el) => el.name === name);
+      rank = leaderboard[0].indexOf(leaderboard[0].sort((a, b) => parseFloat(a.time) - parseFloat(b.time)).find((el) => el.name === name));
+      rank++;
+      return true;
     } else {
       res.json({ status: 500, err: "No data! " });
+      return false;
     }
   }
-  
+
   const errData = (error) => {
     console.error('Something went wrong.');
     console.error(error);
   }
-  
+
   let dataList = await leaderboardDB.on('value', getData, errData);
 
   // Return project if availible
-  if(dataList)
-    res.json({ status: 200, data: leaderboard[0] });
-  else
+  if(dataList) {
+    res.json({ status: 200, data: { leaderboard: leaderboard, user: user, rank: rank } });
+  } else
     res.json({ status: 500, err: "Error while getting leaderboard" });
 
 });
@@ -51,9 +64,12 @@ router.get('/leaderboard', async (req, res, next) => {
  */
 router.post('/leaderboard', (req, res, next) => {
 
+  let name = req.body.name;
+  let time = Number(req.body.time);
+
   let user = {
-      name: 'Quentin',
-      time: 2000
+      name: name,
+      time: time
   };
 
   let dbLeaderboardEntry = leaderboardDB.push(user, (a) => console.log(a));
@@ -62,7 +78,7 @@ router.post('/leaderboard', (req, res, next) => {
   if(dbLeaderboardEntry)
     res.json({ status: 200, data: dbLeaderboardEntry.key });
   else
-    res.json({ status: 500, err: "Error while adding user" });
+    res.json({ status: 500, err: "Error while adding leaderboard entry!" });
 });
 
 /**
