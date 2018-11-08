@@ -29,14 +29,14 @@ app.get('/', function(req, res) {
   });
 });
 
-// game page 
+// game page
 app.get('/game', function(req, res) {
   res.render('pages/game', {
     head_template: head
   });
 });
 
-// game page 
+// game page
 app.get('/leaderboard', function(req, res) {
   res.render('pages/leaderboard', {
     head_template: head
@@ -60,9 +60,8 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render tpages/he error page
-  res.status(err.status || 500);
-  res.render('pages/error');
+  // render the error page
+  res.json({ error: err.message });
 });
 
 /**
@@ -71,7 +70,6 @@ app.use(function(err, req, res, next) {
 
 const port = process.env.PORT || '5000';
 app.set('port', port);
-
 
 /**
  * Create HTTP server, listen on ports
@@ -90,9 +88,7 @@ function onError(error) {
     throw error;
   }
 
-  let bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  let bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -114,8 +110,6 @@ function onError(error) {
  */
 function onListening() {
   let addr = server.address();
-  let bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  let bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
