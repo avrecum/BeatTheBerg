@@ -81,19 +81,21 @@ app.get("/", function(req, res) {
       .then(response => {
         let leaderboard = [];
         console.log(response);
-        for(var i = 0; i < response.data.data.leaderboard.length; i++) {
-          leaderboard.push("<tr>\
-            <td scope='row'>" + (i+1) + "</td>\
-            <td>" + response.data.data.leaderboard[i].name + "</td>\
-            <td>" + response.data.data.leaderboard[i].time + "</td>\
-          </tr>");
-        }
-        if(response.data.data.user) {
-          leaderboard.push("<tr class='own-score'>\
-            <td scope='row'>" + response.data.rank + "</td>\
-            <td>" + response.data.data.user.name + "</td>\
-            <td>" + response.data.data.user.time + "</td>\
-          </tr>");
+        if(response.data.data.leaderboard) {
+          for(var i = 0; i < response.data.data.leaderboard.length; i++) {
+            leaderboard.push("<tr>\
+              <td scope='row'>" + (i+1) + "</td>\
+              <td>" + response.data.data.leaderboard[i].name + "</td>\
+              <td>" + response.data.data.leaderboard[i].time + "</td>\
+            </tr>");
+          }
+          if(response.data.data.user) {
+            leaderboard.push("<tr class='own-score'>\
+              <td scope='row'>" + response.data.rank + "</td>\
+              <td>" + response.data.data.user.name + "</td>\
+              <td>" + response.data.data.user.time + "</td>\
+            </tr>");
+          }
         }
         if (progress == null) {
           res.render("pages/index", {
@@ -119,12 +121,14 @@ app.get("/", function(req, res) {
         .then(response => {
           let leaderboard = [];
           console.log(response);
-          for(var i = 0; i < response.data.data.leaderboard.length; i++) {
-            leaderboard.push("<tr>\
-              <td scope='row'>" + (i+1) + "</td>\
-              <td>" + response.data.data.leaderboard[i].name + "</td>\
-              <td>" + response.data.data.leaderboard[i].time + "</td>\
-            </tr>");
+          if(response.data.data.leaderboard) {
+            for(var i = 0; i < response.data.data.leaderboard.length; i++) {
+              leaderboard.push("<tr>\
+                <td scope='row'>" + (i+1) + "</td>\
+                <td>" + response.data.data.leaderboard[i].name + "</td>\
+                <td>" + response.data.data.leaderboard[i].time + "</td>\
+              </tr>");
+            }
           }
           if (progress == null) {
             res.render("pages/index", {
