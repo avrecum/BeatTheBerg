@@ -75,7 +75,6 @@ app.use(appendLocalsToUseInViews);
 app.get("/", function(req, res) {
   const { progress, startTime, user } = req.session;
   res.locals.user = user;
-  url = (user) ? "http://localhost:5000/api/leaderboard?=" + user : "http://localhost:5000/api/leaderboard"
   let response = axios
     .get(user?"http://localhost:5000/api/leaderboard?user=" + user:"http://localhost:5000/api/leaderboard")
     .then(response => {
@@ -103,6 +102,18 @@ app.get("/", function(req, res) {
           leaderboard: leaderboard
         });
     }
+     else {
+      res.render("pages/index", {
+        head_template: head,
+        user: {
+          user,
+          progress,
+          startTime
+        },
+        leaderboard: leaderboard
+      });
+    }
+});
 });
 
 // game page
