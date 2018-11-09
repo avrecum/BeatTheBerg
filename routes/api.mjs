@@ -222,7 +222,7 @@ router.post('/progress', async (req, res, next) => {
     axios
       .get(`http://localhost:5000/api/progress?user=${user}`)
       .then(function(response) {
-        if (marker === Number(storyOrder[response.data.data-1])) {
+        if (marker === Number(storyOrder[response.data.data])) {
           updateProgress(response.data);
         } else {
           res.status(304);

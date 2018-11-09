@@ -76,7 +76,7 @@ app.get("/", function(req, res) {
   const { progress, startTime, user } = req.session;
   res.locals.user = user;
   let response = axios
-    .get("http://localhost:5000/api/leaderboard?=" + user)
+    .get(user?"http://localhost:5000/api/leaderboard?user=" + user:"http://localhost:5000/api/leaderboard")
     .then(response => {
       let leaderboard = [];
       console.log(response);
@@ -120,19 +120,20 @@ app.get("/game", async function(req, res) {
   const response = await axios.get(
     `http://localhost:5000/api/progress?user=${res.locals.request.session.user}`
   );
-  let userProgress = response.data.data - 1;
+  let userProgress = response.data.data;
   let currentMilestone = storyOrder[userProgress];
+  let previousMilestone = storyOrder[userProgress-1];
   if(currentMilestone==undefined){
     currentMilestone = 0;
   }
   let current_asset =
-    currentMilestone > 0
-      ? milestones[currentMilestone] + milestones[currentMilestone - 1]
-      : milestones[currentMilestone];
+    currentMilestone > 1
+      ? milestones[currentMilestone-1] + milestones[previousMilestone - 1]
+      : milestones[currentMilestone-1];
   let current_marker =
-    currentMilestone > 0
-      ? markers[currentMilestone].replace("eventListener", "currentmarker") + markers[currentMilestone - 1].replace("eventListener", "previousmarker")
-      : markers[currentMilestone].replace("eventListener", "currentmarker");
+    currentMilestone > 1
+      ? markers[currentMilestone-1].replace("eventListener", "currentmarker") + markers[previousMilestone - 1].replace("eventListener", "previousmarker")
+      : markers[currentMilestone-1].replace("eventListener", "currentmarker");
   res.render('pages/game', {
     head_template: head,
     current_asset,
