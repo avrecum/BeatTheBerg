@@ -96,7 +96,8 @@
           <th scope="col">Zeit</th>
         </thead>
         <tbody>
-          <tr>
+          <%- leaderboard %>
+          <!-- <tr>
             <td scope="row">1</td>
             <td>Mark</td>
             <td>200</td>
@@ -115,7 +116,7 @@
             <td scope="row">200</td>
             <td>Quentin</td>
             <td>9000</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </article>
@@ -139,7 +140,7 @@
         });
         window.location.reload(true);
 			}
-			
+
 			async function logout() {
 				await axios.get('/api/user/logout');
         window.location.reload(true);
