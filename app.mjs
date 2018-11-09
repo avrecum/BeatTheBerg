@@ -75,78 +75,32 @@ app.use(appendLocalsToUseInViews);
 app.get("/", function(req, res) {
   const { progress, startTime, user } = req.session;
   res.locals.user = user;
-  if(user) {
-    let response = axios
-      .get("http://localhost:5000/api/leaderboard?=" + user)
-      .then(response => {
-        let leaderboard = [];
-        console.log(response);
-        if(response.data.data.leaderboard) {
-          for(var i = 0; i < response.data.data.leaderboard.length; i++) {
-            leaderboard.push("<tr>\
-              <td scope='row'>" + (i+1) + "</td>\
-              <td>" + response.data.data.leaderboard[i].name + "</td>\
-              <td>" + response.data.data.leaderboard[i].time + "</td>\
-            </tr>");
-          }
-          if(response.data.data.user) {
-            leaderboard.push("<tr class='own-score'>\
-              <td scope='row'>" + response.data.rank + "</td>\
-              <td>" + response.data.data.user.name + "</td>\
-              <td>" + response.data.data.user.time + "</td>\
-            </tr>");
-          }
-        }
-        if (progress == null) {
-          res.render("pages/index", {
-            head_template: head,
-            user: false,
-            leaderboard: leaderboard
-          });
-        } else {
-          res.render("pages/index", {
-            head_template: head,
-            user: {
-              user,
-              progress,
-              startTime
-            },
-            leaderboard: leaderboard
-          });
-        }
-      });
-    } else {
-      let response = axios
-        .get("http://localhost:5000/api/leaderboard")
-        .then(response => {
-          let leaderboard = [];
-          console.log(response);
-          if(response.data.data.leaderboard) {
-            for(var i = 0; i < response.data.data.leaderboard.length; i++) {
-              leaderboard.push("<tr>\
-                <td scope='row'>" + (i+1) + "</td>\
-                <td>" + response.data.data.leaderboard[i].name + "</td>\
-                <td>" + response.data.data.leaderboard[i].time + "</td>\
-              </tr>");
-            }
-          }
-          if (progress == null) {
-            res.render("pages/index", {
-              head_template: head,
-              user: false,
-              leaderboard: leaderboard
-            });
-          } else {
-            res.render("pages/index", {
-              head_template: head,
-              user: {
-                user,
-                progress,
-                startTime
-              },
-              leaderboard: leaderboard
-            });
-          }
+  url = (user) ? "http://localhost:5000/api/leaderboard?=" + user : "http://localhost:5000/api/leaderboard"
+  let response = axios
+    .get("http://localhost:5000/api/leaderboard?=" + user)
+    .then(response => {
+      let leaderboard = [];
+      console.log(response);
+      !response.data.data.leaderboard ? response.data.data.leaderboard = [{name:0, time:0}] : "" ;
+      for(var i = 0; i < response.data.data.leaderboard.length; i++) {
+        leaderboard.push("<tr>\
+          <td scope='row'>" + (i+1) + "</td>\
+          <td>" + response.data.data.leaderboard[i].name + "</td>\
+          <td>" + response.data.data.leaderboard[i].time + "</td>\
+        </tr>");
+      }
+      if(response.data.data.user) {
+        leaderboard.push("<tr class='own-score'>\
+          <td scope='row'>" + response.data.rank + "</td>\
+          <td>" + response.data.data.user.name + "</td>\
+          <td>" + response.data.data.user.time + "</td>\
+        </tr>");
+      }
+      if (progress == null) {
+        res.render("pages/index", {
+          head_template: head,
+          user: false,
+          leaderboard: leaderboard
         });
     }
 });
@@ -158,15 +112,18 @@ app.get("/game", async function(req, res) {
   );
   let userProgress = response.data.data - 1;
   let currentMilestone = storyOrder[userProgress];
+  if(currentMilestone==undefined){
+    currentMilestone = 0;
+  }
   let current_asset =
     currentMilestone > 0
       ? milestones[currentMilestone] + milestones[currentMilestone - 1]
       : milestones[currentMilestone];
   let current_marker =
     currentMilestone > 0
-      ? markers[currentMilestone] + markers[currentMilestone - 1]
-      : milestones[currentMilestone];
-  res.render("pages/game", {
+      ? markers[currentMilestone].replace("eventListener", "currentmarker") + markers[currentMilestone - 1].replace("eventListener", "previousmarker")
+      : markers[currentMilestone].replace("eventListener", "currentmarker");
+  res.render('pages/game', {
     head_template: head,
     current_asset,
     current_marker
