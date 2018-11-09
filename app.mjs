@@ -80,6 +80,7 @@ app.get("/", function(req, res) {
     .then(response => {
       let leaderboard = [];
       console.log(response);
+      !response.data.data.leaderboard ? response.data.data.leaderboard = [{name:0, time:0}] : "" ;
       for(var i = 0; i < response.data.data.leaderboard.length; i++) {
         leaderboard.push("<tr>\
           <td scope='row'>" + (i+1) + "</td>\
