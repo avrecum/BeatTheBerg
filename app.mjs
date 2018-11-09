@@ -75,43 +75,76 @@ app.use(appendLocalsToUseInViews);
 app.get("/", function(req, res) {
   const { progress, startTime, user } = req.session;
   res.locals.user = user;
-  let response = axios
-    .get("http://localhost:5000/api/leaderboard?=" + user)
-    .then(response => {
-      let leaderboard = [];
-      console.log(response);
-      for(var i = 0; i < response.data.data.leaderboard.length; i++) {
-        leaderboard.push("<tr>\
-          <td scope='row'>" + (i+1) + "</td>\
-          <td>" + response.data.data.leaderboard[i].name + "</td>\
-          <td>" + response.data.data.leaderboard[i].time + "</td>\
-        </tr>");
-      }
-      if(response.data.data.user) {
-        leaderboard.push("<tr class='own-score'>\
-          <td scope='row'>" + response.data.rank + "</td>\
-          <td>" + response.data.data.user.name + "</td>\
-          <td>" + response.data.data.user.time + "</td>\
-        </tr>");
-      }
-      if (progress == null) {
-        res.render("pages/index", {
-          head_template: head,
-          user: false,
-          leaderboard: leaderboard
+  if(user) {
+    let response = axios
+      .get("http://localhost:5000/api/leaderboard?=" + user)
+      .then(response => {
+        let leaderboard = [];
+        console.log(response);
+        for(var i = 0; i < response.data.data.leaderboard.length; i++) {
+          leaderboard.push("<tr>\
+            <td scope='row'>" + (i+1) + "</td>\
+            <td>" + response.data.data.leaderboard[i].name + "</td>\
+            <td>" + response.data.data.leaderboard[i].time + "</td>\
+          </tr>");
+        }
+        if(response.data.data.user) {
+          leaderboard.push("<tr class='own-score'>\
+            <td scope='row'>" + response.data.rank + "</td>\
+            <td>" + response.data.data.user.name + "</td>\
+            <td>" + response.data.data.user.time + "</td>\
+          </tr>");
+        }
+        if (progress == null) {
+          res.render("pages/index", {
+            head_template: head,
+            user: false,
+            leaderboard: leaderboard
+          });
+        } else {
+          res.render("pages/index", {
+            head_template: head,
+            user: {
+              user,
+              progress,
+              startTime
+            },
+            leaderboard: leaderboard
+          });
+        }
+      });
+    } else {
+      let response = axios
+        .get("http://localhost:5000/api/leaderboard")
+        .then(response => {
+          let leaderboard = [];
+          console.log(response);
+          for(var i = 0; i < response.data.data.leaderboard.length; i++) {
+            leaderboard.push("<tr>\
+              <td scope='row'>" + (i+1) + "</td>\
+              <td>" + response.data.data.leaderboard[i].name + "</td>\
+              <td>" + response.data.data.leaderboard[i].time + "</td>\
+            </tr>");
+          }
+          if (progress == null) {
+            res.render("pages/index", {
+              head_template: head,
+              user: false,
+              leaderboard: leaderboard
+            });
+          } else {
+            res.render("pages/index", {
+              head_template: head,
+              user: {
+                user,
+                progress,
+                startTime
+              },
+              leaderboard: leaderboard
+            });
+          }
         });
-      } else {
-        res.render("pages/index", {
-          head_template: head,
-          user: {
-            user,
-            progress,
-            startTime
-          },
-          leaderboard: leaderboard
-        });
-      }
-    });
+    }
 });
 
 // game page
