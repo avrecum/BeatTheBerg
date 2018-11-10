@@ -78,17 +78,16 @@ router.get('/leaderboard', async (req, res, next) => {
 router.post('/leaderboard', async (req, res, next) => {
   let name = req.body.name;
   let time = Number(req.body.time);
-
+  console.log(req.body.data)
   let user = {
     name,
     time
   };
-
-  let dbLeaderboardEntry = leaderboardDB.child(user.name).set(user);
+  let dbLeaderboardEntry = await leaderboardDB.child(user.name).set(user);
   console.log('Data: Firebase generated key: ' + dbLeaderboardEntry.key);
-
-  if (dbLeaderboardEntry)
-    res.json({ status: 200, data: dbLeaderboardEntry.key });
+ 
+  if (dbLeaderboardEntry){
+    res.json({ status: 200, data: dbLeaderboardEntry.key });}
   else res.json({ status: 500, err: 'Error while adding leaderboard entry!' });
 });
 
@@ -153,7 +152,7 @@ router.post('/user/register', async (req, res) => {
     const response = await hasUser(user);
     if (!response) {
       let dbUserEntry = userDB.child(user).set({
-        startTime: Date.now(),
+        startTime: Math.floor(new Date() / 1000),
         progressCounter: 0
       });
       console.log('Data: Firebase generated key: ' + dbUserEntry.key);
@@ -220,13 +219,27 @@ router.post('/progress', async (req, res, next) => {
     const updateProgress = async progress => {
       let updateProg = progress.data;
       updateProg++;
+      const leaderboard = async (user, startTime) =>{
+        //let url = BASE_URL + "/api/leaderboard"
+        console.log(req.session.startTime+ " starttime")
+        axios.post(`${BASE_URL}/api/leaderboard`,{"name": user, "time": Math.floor(new Date() / 1000)-startTime}).then(function(res){
+          console.log("response"+res)
+        }).catch(function(err){
+          console.log(err)
+        })
+      }
+
       await userDB.child(user).update({ progressCounter: updateProg });
+      if(updateProg == 24){
+        console.log("posting to leaderboard: " + req.session.user + " " + updateProg)
+        await leaderboard(req.session.user, req.session.startTime);
+      }
       res.json({ status: 200, marker: updateProg });
     };
     axios
       .get(`${BASE_URL}/api/progress?user=${user}`)
       .then(function(response) {
-        console.log(storyOrder[response.data.data]-1);
+        //console.log(Number(storyOrder[response.data.data])-1);
         if (Number(marker) === storyOrder[response.data.data]-1) {
           updateProgress(response.data);
         } else {
