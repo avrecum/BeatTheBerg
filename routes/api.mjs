@@ -69,7 +69,8 @@ router.get('/leaderboard', async (req, res, next) => {
       status: 200,
       data: { leaderboard, user, rank }
     });
-  } else res.json({ status: 500, err: 'Error while getting leaderboard' });
+  } 
+  //else res.json({ status: 500, err: 'Error while getting leaderboard' });
 });
 
 /**
@@ -204,7 +205,7 @@ router.get('/progress', async (req, res, next) => {
       .once('value', getData, errData);
   } catch (err) {
     console.log('Error: ', err.message)
-    res.json({ status: 500, err: 'Error while getting progress' });
+    //res.json({ status: 500, err: 'Error while getting progress' });
   }
 
 });
