@@ -29,8 +29,6 @@ export const getRouter = (firebaseRef, storyOrderRef) => {
  */
 router.get('/leaderboard', async (req, res, next) => {
   let name = req.query.name || null;
-  console.log(name);
-
   let leaderboard;
   let rank;
   let user;
@@ -105,6 +103,7 @@ router.post('/user/login', (req, res) => {
           req.session.progress = users[user].progressCounter;
           req.session.startTime = users[user].startTime;
           req.session.user = user;
+          req.flash('message', 'Erfolgreich eingeloggt!')
           res.json({
             status: 200,
             data: {}
@@ -158,6 +157,7 @@ router.post('/user/register', async (req, res) => {
       });
       console.log('Data: Firebase generated key: ' + dbUserEntry.key);
     }
+    req.flash('message', 'Erfolgreich registriert. Du kannst dich jetzt einloggen.');
     res.json({ status: 200 });
   } catch (err) {
     console.error(err);
@@ -169,6 +169,7 @@ router.get('/user/logout', (req, res) => {
   req.session.progress = undefined;
   req.session.startTime = undefined;
   req.session.user = undefined;
+  req.flash('message','Erfolgreich ausgeloggt!')
   res.send('success');
 });
 
