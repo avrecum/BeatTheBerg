@@ -85,7 +85,6 @@ app.get('/', function(req, res) {
     )
     .then(response => {
       let leaderboard = [];
-      console.log(response);
       !response.data.data.leaderboard
         ? (response.data.data.leaderboard = [{ name: 0, time: 0 }])
         : '';
