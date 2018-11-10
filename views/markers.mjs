@@ -277,13 +277,13 @@ const markers = [
 ",
 "\
 <a-marker type='barcode' value='665' id='marker-barcode-23' eventListener>\
-  <a-entity scale='0.1 0.1 0.1'>\
+  <a-entity scale='0.1 0.1 0.1' rotation='180 0 0'>\
   <a-obj-model src='#asset-23-obj'></a-obj-model>\
   </a-entity>\
   </a-marker>\
 ",
 "\
-<a-marker type='barcode' value='662' id='marker-barcode-24' eventListener>\
+<a-marker type='barcode' value='666' id='marker-barcode-24' eventListener>\
   <a-entity scale='0.03 0.03 0.03' rotation='270 0 0'>\
   <a-obj-model src='#locked-obj' mtl='#locked-mtl'></a-obj-model>\
   </a-entity>\
