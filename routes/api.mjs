@@ -59,7 +59,7 @@ router.get('/leaderboard', async (req, res, next) => {
     console.error(error);
   };
 
-  let dataList = await leaderboardDB.on('value', getData, errData);
+  let dataList = await leaderboardDB.once('value', getData, errData);
 
   // Return project if availible
   if (dataList) {
@@ -96,7 +96,7 @@ router.post('/leaderboard', async (req, res, next) => {
 router.post('/user/login', (req, res) => {
   const user = req.body.user;
   try {
-    userDB.on('value', data => {
+    userDB.once('value', data => {
       let users = data.val();
       if (users) {
         if (users[user]) {
@@ -125,7 +125,7 @@ router.post('/user/login', (req, res) => {
 const hasUser = user => {
   return new Promise((resolve, reject) => {
     try {
-      userDB.on('value', data => {
+      userDB.once('value', data => {
         let users = data.val();
         if (users) {
           if (users[user]) {
@@ -200,7 +200,7 @@ router.get('/progress', async (req, res, next) => {
     dataList = await userDB
       .orderByKey()
       .equalTo(name)
-      .on('value', getData, errData);
+      .once('value', getData, errData);
   } catch (err) {
     console.log('Error: ', err.message)
     res.json({ status: 500, err: 'Error while getting progress' });
