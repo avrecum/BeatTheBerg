@@ -75,6 +75,7 @@ app.use(appendLocalsToUseInViews);
 
 // index page
 app.get('/', function(req, res) {
+  console.log(req.session.user)
   const { progress, startTime, user } = req.session;
   res.locals.user = user;
   let response = axios
@@ -98,7 +99,8 @@ app.get('/', function(req, res) {
             response.data.data.leaderboard[i].name +
             '</td>\
           <td>' +
-            response.data.data.leaderboard[i].time +
+            response.data.data.leaderboard[i].time 
+            + ' Sek.'+
             '</td>\
         </tr>'
         );
