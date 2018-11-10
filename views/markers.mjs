@@ -276,9 +276,9 @@ const markers = [
 </a-marker>\
 ",
 "\
-<a-marker type='barcode' value='662' id='marker-barcode-23' eventListener>\
-  <a-entity scale='0.03 0.03 0.03' rotation='270 0 0'>\
-  <a-obj-model src='#asset-23-obj' mtl='#asset-23-mtl'></a-obj-model>\
+<a-marker type='barcode' value='665' id='marker-barcode-23' eventListener>\
+  <a-entity scale='0.1 0.1 0.1'>\
+  <a-obj-model src='#asset-23-obj'></a-obj-model>\
   </a-entity>\
   </a-marker>\
 ",

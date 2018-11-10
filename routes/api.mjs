@@ -8,7 +8,8 @@ let userDB;
 let firebase;
 let storyOrder;
 
-const BASE_URL = process.env.BASE_URL;
+//const BASE_URL = process.env.BASE_URL;
+const BASE_URL = "http://localhost:5000";
 
 export const getRouter = (firebaseRef, storyOrderRef) => {
   firebase = firebaseRef;
