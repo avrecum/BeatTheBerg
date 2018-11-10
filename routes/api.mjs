@@ -101,15 +101,19 @@ router.post('/user/login', (req, res) => {
           req.session.progress = users[user].progressCounter;
           req.session.startTime = users[user].startTime;
           req.session.user = user;
+          if(!res.headerSent){
           res.json({
             status: 200,
             data: {}
           });
+        }
         } else {
+          if(!res.headerSent){
           res.json({
             status: 500,
             data: 'User not in database'
           });
+        }
         }
       }
     });
@@ -210,19 +214,18 @@ router.get('/progress', async (req, res, next) => {
 router.post('/progress', async (req, res, next) => {
   const user = req.session.user;
   const marker = req.body.marker;
-
-  if (marker) {
+  if (marker!== undefined) {
     const updateProgress = async progress => {
       let updateProg = progress.data;
       updateProg++;
       await userDB.child(user).update({ progressCounter: updateProg });
       res.json({ status: 200, data: updateProg });
     };
-
     axios
       .get(`http://localhost:5000/api/progress?user=${user}`)
       .then(function(response) {
-        if (marker === Number(storyOrder[response.data.data])) {
+        console.log(storyOrder[response.data.data]-1);
+        if (Number(marker) === storyOrder[response.data.data]-1) {
           updateProgress(response.data);
         } else {
           res.status(304);
@@ -232,6 +235,8 @@ router.post('/progress', async (req, res, next) => {
       .catch(function(error) {
         console.log(error);
       });
+  }else{
+    res.json({status: 304})
   }
 
 });

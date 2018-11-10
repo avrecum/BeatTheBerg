@@ -2,7 +2,7 @@ const markers = [
 "\
 <a-marker type='barcode' value='642' id='marker-barcode-0' eventListener>\
   <a-entity>\
-    <a-image src='#asset-0' side='double' rotate='0 270 0'></a-image>\
+    <a-image src='#asset-0' side='double' rotate='270 0 0'></a-image>\
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
@@ -131,13 +131,13 @@ const markers = [
 "\
 </a-marker>\
 <a-marker type='barcode' value='653' id='marker-barcode-11' eventListener>\
-  <a-entity>\
-    <a-image src='#asset-11' side='double'></a-image>\
-    <a-animation attribute='rotation'\
+  <a-entity rotation='270 0 0'>\
+    <a-image src='#asset-11' side='double' ></a-image>\
+    <!--<a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
                 to='0 360 0'\
-                repeat='indefinite'></a-animation>\
+                repeat='indefinite'></a-animation>-->\
   </a-entity>\
 ",
 "\

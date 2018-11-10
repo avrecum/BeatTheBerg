@@ -11,9 +11,10 @@
       init: function () {
         let marker = this.el;
         marker.addEventListener('markerFound', async function() {
-          let markerId = marker.id;
+          let markerId = marker.id.split('marker-barcode-')[1];
+          console.log(markerId)
           await axios.post('/api/progress', {
-            marker: Number(markerId.split('marker-barcode-')[1]) + 1
+            marker: Number(markerId)
           });
           console.log("current marker found")
           document.querySelector(".cursor").style="margin-top: 100px;";

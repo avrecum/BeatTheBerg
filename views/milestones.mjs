@@ -1,6 +1,6 @@
 const milestones = [
 '<img id="asset-0" src="./milestone-images/4962.png">',
-'<a-asset-item id="asset-1-obj" src="./milestone-images/2002.obj"></a-asset-item><a-asset-item id="asset-2-mtl" src="./milestone-images/2002.mtl"></a-asset-item>',
+'<a-asset-item id="asset-1-obj" src="./milestone-images/2002.obj"></a-asset-item><a-asset-item id="asset-1-mtl" src="./milestone-images/2002.mtl"></a-asset-item>',
 '<img id="asset-2" src="./milestone-images/Schwarzes Brett.png">',
 '<img id="asset-3" src="./milestone-images/Treppen.png">',
 '<img id="asset-4" src="./milestone-images/auge_02.png">',
