@@ -75,7 +75,6 @@ app.use(appendLocalsToUseInViews);
 
 // index page
 app.get('/', function(req, res) {
-  console.log(req.session.user)
   const { progress, startTime, user } = req.session;
   res.locals.user = user;
   let response = axios
@@ -142,6 +141,7 @@ app.get('/', function(req, res) {
 
 // game page
 app.get('/game', async function(req, res) {
+  if(req.user){
   const response = await axios.get(
     `${BASE_URL}/api/progress?user=${res.locals.request.session.user}`
   );
@@ -171,6 +171,9 @@ app.get('/game', async function(req, res) {
     current_asset,
     current_marker
   });
+}else{
+  res.redirect(301,'/')
+}
 });
 
 // game page
