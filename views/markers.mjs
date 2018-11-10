@@ -13,8 +13,8 @@ const markers = [
 ",
 "\
 <a-marker type='barcode' value='643' id='marker-barcode-1' eventListener>\
-  <a-entity>\
-    <a-image src='#asset-1' side='double'></a-image>\
+  <a-entity scale ='0.03 0.03 0.03' rotation='270 0 0'>\
+    <a-obj-model src='#asset-1-obj' mtl='#asset-1-mtl'></a-obj-model>\
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
@@ -73,8 +73,9 @@ const markers = [
 "\
 </a-marker>\
 <a-marker type='barcode' value='648' id='marker-barcode-6' eventListener>\
-  <a-entity scale='0.05 0.05 0.05' rotation='270 0 0' obj-model='obj: url(./milestone-images/hanger/10922_Coat_hangers_v3_LOD3.obj); mtl: url(./milestone-images/hanger/10922_Coat_hangers_v3_LOD3.mtl)'>\
-    <a-animation attribute='rotation'\
+  <a-entity scale='0.05 0.05 0.05' rotation='270 0 0'>\
+  <a-obj-model src='#asset-6-obj' mtl='#asset-6-mtl'></a-obj-model>\
+  <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
                 to='0 360 0'\
@@ -96,7 +97,8 @@ const markers = [
 "\
 </a-marker>\
 <a-marker type='barcode' value='650' id='marker-barcode-8' eventListener>\
-  <a-entity scale='0.03 0.03 0.03' rotation='-90 0 0' obj-model='obj: url(./milestone-images/11721_darboard_V4_L3.obj); mtl: url(./milestone-images/11721_darboard_V4_L3.mtl)'>\
+  <a-entity scale='0.03 0.03 0.03' rotation='-90 0 0'>\
+  <a-obj-model src='#asset-8-obj' mtl='#asset-8-mtl'></a-obj-model>\
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
@@ -108,7 +110,7 @@ const markers = [
 "\
 <a-marker type='barcode' value='651' id='marker-barcode-9' eventListener>\
   <a-entity>\
-    <a-image src='#asset-9' side='double'></a-image>\
+  <a-obj-model src='#asset-9-obj' mtl='#asset-9-mtl'></a-obj-model>\
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
@@ -144,7 +146,7 @@ const markers = [
 </a-marker>\
 <a-marker type='barcode' value='654' id='marker-barcode-12' eventListener>\
   <a-entity>\
-    <a-sphere src='./milestone-images/textures/earth-texture.jpg' scale='0.5 0.5 0.5' ></a-sphere>\
+    <a-sphere src='./milestone-images/earth-texture.jpg' scale='0.5 0.5 0.5' ></a-sphere>\
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
@@ -156,7 +158,7 @@ const markers = [
 </a-marker>\
 <a-marker type='barcode' value='655' id='marker-barcode-13' eventListener>\
   <a-entity>\
-    <a-image src='#asset-13' side='double'></a-image>\
+  <a-obj-model src='#asset-13-obj' mtl='#asset-13-mtl'></a-obj-model>\
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
@@ -167,7 +169,8 @@ const markers = [
 "\
 </a-marker>\
 <a-marker type='barcode' value='656' id='marker-barcode-14' eventListener>\
-  <a-entity scale='0.03 0.03 0.03' obj-model='obj: url(./milestone-images/tire/Car_tire_2.obj);'>\
+  <a-entity scale='0.03 0.03 0.03'>\
+  <a-obj-model src='#asset-14-obj' mtl='#asset-14-mtl'></a-obj-model>\
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
@@ -214,7 +217,8 @@ const markers = [
 "\
 </a-marker>\
 <a-marker type='barcode' value='660' id='marker-barcode-18' eventListener>\
-  <a-entity scale='0.03 0.03 0.03' rotation='270 0 0' obj-model='obj: url(./milestone-images/umbrella/12981_umbrella_v1_l2.obj); mtl: url(./milestone-images/umbrella/12981_umbrella_v1_l2.mtl)'>\
+  <a-entity scale='0.03 0.03 0.03' rotation='270 0 0'>\
+  <a-obj-model src='#asset-18-obj' mtl='#asset-18-mtl'></a-obj-model>\
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
@@ -237,7 +241,8 @@ const markers = [
 "\
 </a-marker>\
 <a-marker type='barcode' value='662' id='marker-barcode-20' eventListener>\
-  <a-entity scale='0.03 0.03 0.03' rotation='270 0 0' obj-model='obj: url(./milestone-images/schloss/13020_Aquarium_Castle_v1_L1.obj); mtl: url(./milestone-images/schloss/13020_Aquarium_Castle_v1_L1.mtl)'>\
+  <a-entity scale='0.03 0.03 0.03' rotation='270 0 0'>\
+  <a-obj-model src='#asset-20-obj' mtl='#asset-20-mtl'></a-obj-model>\
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
@@ -269,6 +274,20 @@ const markers = [
                 repeat='indefinite'></a-animation>\
   </a-entity>\
 </a-marker>\
+",
+"\
+</a-marker>\
+<a-marker type='barcode' value='662' id='marker-barcode-23' eventListener>\
+  <a-entity scale='0.03 0.03 0.03' rotation='270 0 0'>\
+  <a-obj-model src='#asset-23-obj' mtl='#asset-23-mtl'></a-obj-model>\
+  </a-entity>\
+",
+"\
+</a-marker>\
+<a-marker type='barcode' value='662' id='marker-barcode-24' eventListener>\
+  <a-entity scale='0.03 0.03 0.03' rotation='270 0 0'>\
+  <a-obj-model src='#locked-obj' mtl='#locked-mtl'></a-obj-model>\
+  </a-entity>\
 "
 ];
 
