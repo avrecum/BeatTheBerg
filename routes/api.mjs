@@ -8,6 +8,8 @@ let userDB;
 let firebase;
 let storyOrder;
 
+const BASE_URL = process.env.BASE_URL;
+
 export const getRouter = (firebaseRef, storyOrderRef) => {
   firebase = firebaseRef;
   database = firebase.database();
@@ -220,7 +222,7 @@ router.post('/progress', async (req, res, next) => {
       res.json({ status: 200, marker: updateProg });
     };
     axios
-      .get(`http://localhost:5000/api/progress?user=${user}`)
+      .get(`${BASE_URL}/api/progress?user=${user}`)
       .then(function(response) {
         console.log(storyOrder[response.data.data]-1);
         if (Number(marker) === storyOrder[response.data.data]-1) {
