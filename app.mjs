@@ -145,6 +145,7 @@ app.get('/game', async function(req, res) {
     `${BASE_URL}/api/progress?user=${res.locals.request.session.user}`
   );
   let userProgress = response.data.data;
+  if(userProgress != null){
   let currentMilestone = storyOrder[userProgress];
   if (userProgress >= 23) {
     currentMilestone = 24;
@@ -170,6 +171,9 @@ app.get('/game', async function(req, res) {
     current_asset,
     current_marker
   });
+}else{
+  res.redirect(307,'/')
+}
 });
 
 // game page
