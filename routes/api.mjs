@@ -1,6 +1,8 @@
 import express from 'express';
 import axios from 'axios';
 const router = express.Router();
+import dotenv from 'dotenv';
+dotenv.config();
 
 let database;
 let leaderboardDB;
@@ -8,7 +10,7 @@ let userDB;
 let firebase;
 let storyOrder;
 
-const BASE_URL = process.env.BASE_URL;
+var BASE_URL = process.env.BASE_URL;
 
 export const getRouter = (firebaseRef, storyOrderRef) => {
   firebase = firebaseRef;
