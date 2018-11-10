@@ -27,7 +27,9 @@ var x = setInterval(function() {
 
   // If the count down is finished, write some text
   if (distance < 0) {
-    document.getElementsByTagName("main")[0].innerHTML = "0d 0h 0m 0s";
+    document.getElementsByTagName("main")[0].innerHTML = "Bring den M&uuml;ll raus.";
+    document.getElementsByTagName("div")[0].innerHTML = "<a href='beattheberg.flxwu.com'>Zum Projekt</a>"
+  
   }
     }
 }, 1000);
