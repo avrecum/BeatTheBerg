@@ -149,6 +149,9 @@ app.get('/game', async function(req, res) {
   if (currentMilestone == undefined) {
     currentMilestone = 0;
   }
+  if(currentMilestone >= 24){
+    currentMilestone = 23;
+  }
   let current_asset =
     currentMilestone > 1
       ? milestones[currentMilestone - 1] + milestones[previousMilestone - 1]
