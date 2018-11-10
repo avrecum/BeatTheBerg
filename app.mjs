@@ -17,6 +17,7 @@ import head from './views/head.mjs';
 import markers from './views/markers.mjs';
 import milestones from './views/milestones.mjs';
 import dotenv from 'dotenv';
+import flash from 'connect-flash';
 dotenv.config();
 
 const app = express();
@@ -72,7 +73,7 @@ var appendLocalsToUseInViews = function(req, res, next) {
 };
 
 app.use(appendLocalsToUseInViews);
-
+app.use(flash());
 // index page
 app.get('/', function(req, res) {
   const { progress, startTime, user } = req.session;
@@ -122,12 +123,14 @@ app.get('/', function(req, res) {
       if (progress == null) {
         res.render('pages/index', {
           head_template: head,
+          message: req.flash('message')[0],
           user: false,
           leaderboard: leaderboard
         });
       } else {
         res.render('pages/index', {
           head_template: head,
+          message: req.flash('message')[0],
           user: {
             user,
             progress,

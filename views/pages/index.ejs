@@ -13,6 +13,11 @@
         Beat the Berg ist die beste interaktive Augmented-Reality Schnitzeljagd,
         die ihr je gesehen habt!
       </h2>
+      <% if (message != undefined){ %>
+        <div class="alert alert-success text-center" role="alert">
+          <%= message %>
+        </div>
+      <% } %>
       <h3>So funktioniert es:</h3>
       <ul>
         <li>
