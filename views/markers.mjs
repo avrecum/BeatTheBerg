@@ -6,7 +6,7 @@ const markers = [
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
-                to='0 0 360'\
+                to='0 360 360'\
                 repeat='indefinite'></a-animation>\
   </a-entity>\
 </a-marker>\
@@ -37,19 +37,19 @@ const markers = [
 ",
 "\
 <a-marker type='barcode' value='645' id='marker-barcode-3' eventListener>\
-  <a-entity>\
+  <a-entity scale='2 2 2'>\
     <a-image src='#asset-3' side='double'></a-image>\
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
-                to='0 360 0'\
+                to='360 0 360'\
                 repeat='indefinite'></a-animation>\
   </a-entity>\
 ",
 "\
 </a-marker>\
 <a-marker type='barcode' value='646' id='marker-barcode-4' eventListener>\
-  <a-entity>\
+  <a-entity scale='2 2 2'>\
     <a-image src='#asset-4' side='double'></a-image>\
     <a-animation attribute='rotation'\
                 dur='10000'\
@@ -109,7 +109,7 @@ const markers = [
 ",
 "\
 <a-marker type='barcode' value='651' id='marker-barcode-9' eventListener>\
-  <a-entity>\
+  <a-entity scale='.03 .03 .03'>\
   <a-obj-model src='#asset-9-obj' mtl='#asset-9-mtl'></a-obj-model>\
     <a-animation attribute='rotation'\
                 dur='10000'\
@@ -121,7 +121,7 @@ const markers = [
 "\
 </a-marker>\
 <a-marker type='barcode' value='652' id='marker-barcode-10' eventListener>\
-  <a-entity>\
+  <a-entity scale='3 3 3'>\
     <a-image src='#asset-10' side='double'></a-image>\
     <a-animation attribute='rotation'\
                 dur='10000'\
@@ -157,7 +157,7 @@ const markers = [
 "\
 </a-marker>\
 <a-marker type='barcode' value='655' id='marker-barcode-13' eventListener>\
-  <a-entity>\
+  <a-entity scale='.04 .04 .04'>\
   <a-obj-model src='#asset-13-obj' mtl='#asset-13-mtl'></a-obj-model>\
     <a-animation attribute='rotation'\
                 dur='10000'\
@@ -193,12 +193,12 @@ const markers = [
 "\
 </a-marker>\
 <a-marker type='barcode' value='658' id='marker-barcode-16' eventListener>\
-  <a-entity>\
+  <a-entity scale='3 3 3'>\
     <a-image src='#asset-16' side='double'></a-image>\
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
-                to='0 360 0'\
+                to='360 0 360'\
                 repeat='indefinite'></a-animation>\
   </a-entity>\
 ",
@@ -210,7 +210,7 @@ const markers = [
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
-                to='0 360 0'\
+                to='360 0 360'\
                 repeat='indefinite'></a-animation>\
   </a-entity>\
 ",
@@ -241,7 +241,7 @@ const markers = [
 "\
 </a-marker>\
 <a-marker type='barcode' value='662' id='marker-barcode-20' eventListener>\
-  <a-entity scale='0.03 0.03 0.03' rotation='270 0 0'>\
+  <a-entity scale='0.06 0.06 0.06' rotation='270 0 0'>\
   <a-obj-model src='#asset-20-obj' mtl='#asset-20-mtl'></a-obj-model>\
     <a-animation attribute='rotation'\
                 dur='10000'\
@@ -253,19 +253,19 @@ const markers = [
 "\
 </a-marker>\
 <a-marker type='barcode' value='663' id='marker-barcode-21' eventListener>\
-  <a-entity>\
+  <a-entity scale='2 2 2'>\
     <a-image src='#asset-21' side='double'></a-image>\
     <a-animation attribute='rotation'\
                 dur='10000'\
                 fill='none'\
-                to='0 360 0'\
+                to='360 0 360'\
                 repeat='indefinite'></a-animation>\
   </a-entity>\
 ",
 "\
 </a-marker>\
 <a-marker type='barcode' value='664' id='marker-barcode-22' eventListener>\
-  <a-entity>\
+  <a-entity scale='3 3 3'>\
     <a-image src='#asset-22' side='double'></a-image>\
     <a-animation attribute='rotation'\
                 dur='10000'\
