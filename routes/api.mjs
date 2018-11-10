@@ -101,12 +101,10 @@ router.post('/user/login', (req, res) => {
           req.session.progress = users[user].progressCounter;
           req.session.startTime = users[user].startTime;
           req.session.user = user;
-          if(!res.headerSent){
           res.json({
             status: 200,
             data: {}
           });
-        }
         } else {
           if(!res.headerSent){
           res.json({
@@ -219,7 +217,7 @@ router.post('/progress', async (req, res, next) => {
       let updateProg = progress.data;
       updateProg++;
       await userDB.child(user).update({ progressCounter: updateProg });
-      res.json({ status: 200, data: updateProg });
+      res.json({ status: 200, marker: updateProg });
     };
     axios
       .get(`http://localhost:5000/api/progress?user=${user}`)
