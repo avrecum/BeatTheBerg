@@ -73,7 +73,7 @@ const markers = [
 ",
 "\
 <a-marker type='barcode' value='648' id='marker-barcode-6' eventListener>\
-  <a-entity scale='0.05 0.05 0.05' rotation='270 0 0'>\
+  <a-entity scale='0.08 0.08 0.08' rotation='270 0 0'>\
   <a-obj-model src='#asset-6-obj' mtl='#asset-6-mtl'></a-obj-model>\
   <a-animation attribute='rotation'\
                 dur='10000'\
