@@ -125,7 +125,8 @@ app.get('/', function(req, res) {
           head_template: head,
           message: req.flash('message')[0],
           user: false,
-          leaderboard: leaderboard
+          leaderboard: leaderboard,
+          justregistered: req.flash('justregistered')[0]
         });
       } else {
         res.render('pages/index', {
@@ -136,7 +137,8 @@ app.get('/', function(req, res) {
             progress,
             startTime
           },
-          leaderboard: leaderboard
+          leaderboard: leaderboard,
+          justregistered: undefined
         });
       }
     });

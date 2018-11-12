@@ -157,7 +157,8 @@ router.post('/user/register', async (req, res) => {
       });
       console.log('Data: Firebase generated key: ' + dbUserEntry.key);
     }
-    req.flash('message', 'Erfolgreich registriert. Du kannst dich jetzt einloggen.');
+    req.flash('message', 'Erfolgreich registriert!');
+    req.flash('justregistered', user)
     res.json({ status: 200 });
   } catch (err) {
     console.error(err);

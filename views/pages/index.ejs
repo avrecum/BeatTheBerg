@@ -81,6 +81,7 @@
             id="InputUsername"
             aria-describedby="UsernameHelp"
             placeholder="maxmustermann1"
+            value="<%=justregistered!=undefined ? justregistered : ''%>"
           />
         </div>
         <button
@@ -150,12 +151,14 @@
           user: inputValue
         });
         window.location.reload(true);
-			}
+      }
+      
 
 			async function logout() {
 				await axios.get('/api/user/logout');
         window.location.reload(true);
-			}
+      }
+      <%= justregistered != undefined ? "login()":"" %>
     </script>
   </body>
 </html>
