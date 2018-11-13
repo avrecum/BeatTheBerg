@@ -52,7 +52,7 @@ app.use(
     store: new FirebaseStore({
       database: ref.database()
     }),
-    secret: 'keyboard cat',
+    secret: 'nyan cat',
     resave: true,
     saveUninitialized: true
   })
@@ -76,7 +76,16 @@ app.use(appendLocalsToUseInViews);
 app.use(flash());
 // index page
 app.get('/', function(req, res) {
-  const { progress, startTime, user } = req.session;
+  const {startTime, user} = req.session
+  axios
+      .get(`${BASE_URL}/api/progress?user=${user}`)
+      .then(function(response) {
+        req.session.progress = response.data.data;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  const {progress} = req.session;
   res.locals.user = user;
   let response = axios
     .get(
