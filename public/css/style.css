@@ -132,21 +132,28 @@ p {
 
 .topmiddle{
 	position: fixed;
-	top: 5%;
-	left: 35%;
-	right:35%;
-	width:30%;
+	bottom: 5%;
+	left: 30%;
+	right:30%;
+	width:40%;
 	text-align: center;
-	padding-top: 1%;
+	padding-top: 0%;
 	background-color: #fff;
 	border-radius: 10px;
+	font-size: 15px;
+}
+.topmiddle.text{
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 .topleft{
 	position: fixed;
-	top: 4%;
-	right: 4%;
-	width:15%;
+	bottom: 4%;
+	left: 4%;
+	width:10%;
 	z-index: 2;
 	background-color: #fff;
 	padding: 0.5%;
@@ -186,6 +193,15 @@ button.btn.btn-primary.white{
 	color: #2E4A83;
 	border-color: #2E4A83;
 	float: right;
+}
+.btn.btn-success.cursor{
+	bottom: 10%;
+	width: 48%;
+	left:26%;
+	right:26%;
+	height: 12%;
+	top:78%;
+	font-size: 14px;
 }
 
 .progress{

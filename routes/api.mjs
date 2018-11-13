@@ -222,6 +222,7 @@ router.post('/progress', async (req, res, next) => {
     const updateProgress = async progress => {
       let updateProg = progress.data;
       updateProg++;
+      req.session.progress = updateProg;
       const leaderboard = async (user, startTime) =>{
         //let url = BASE_URL + "/api/leaderboard"
         console.log(req.session.startTime+ " starttime")
