@@ -159,25 +159,6 @@ p {
 	padding: 0.5%;
 	border-radius: 10px;
 }
-
-.cursor {
-	position: fixed;
-	top: 10%;
-	left: 35%;
-	right:35%;
-	width:30%;
-	text-align: center;
-	padding-top: 1%;
-	border-radius: 10px;
-	margin-top: 20px;
-	white-space:normal !important;
-	word-wrap: break-word;
-}
-
-.cursor:hover {
-	cursor: pointer !important;
-}
-
 form{
 	margin-bottom: 20px;
 }
@@ -194,7 +175,8 @@ button.btn.btn-primary.white{
 	border-color: #2E4A83;
 	float: right;
 }
-.btn.btn-success.cursor{
+.btn.btn-success{
+	position: absolute;
 	bottom: 10%;
 	width: 48%;
 	left:26%;
