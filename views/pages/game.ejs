@@ -17,7 +17,6 @@
             marker: Number(markerId)
           });
           console.log("current marker found")
-          //document.querySelector(".cursor").style="margin-top: 100px;";
           document.getElementById("success").style.display = 'block';
         });
         marker.addEventListener('markerLost', function() {
@@ -33,7 +32,6 @@
           await axios.post('/api/progress', {
             marker: Number(markerId.split('marker-barcode-')[1]) + 1
           });
-          document.querySelector(".cursor").style="margin-top: 100px;";
           console.log("previous marker found")
         });
         marker.addEventListener('markerLost', function() {
@@ -65,7 +63,7 @@
       <p class="topmiddle text">Finde den nächsten Marker und scanne ihn, um den nächsten Hinweis zu erhalten!</p>
     </div>
 
-    <button class="btn btn-success cursor" id="success" style="display:none" onclick="location.reload()">
+    <button class="btn btn-success" id="success" style="display:none" onclick="location.reload()">
       Nächsten Hinweis freischalten!
     </button>
 
