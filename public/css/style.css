@@ -230,7 +230,7 @@ table.table.table-striped.leaderboard tbody tr:last-child td:last-child {
 	width: 64px;
 	height: 64px;
 	margin:auto;
-	top:50%;
+	top: 35%;
   }
   .lds-ring div {
 	box-sizing: border-box;
