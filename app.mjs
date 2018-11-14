@@ -99,17 +99,24 @@ app.get('/', function(req, res) {
         ? (response.data.data.leaderboard = [{ name: 0, time: 0 }])
         : '';
       for (var i = 0; i < response.data.data.leaderboard.length; i++) {
+        let name = response.data.data.leaderboard[i].name;
+        let time = Number(response.data.data.leaderboard[i].time);
+        let days = Math.floor(time/(24*60*60))
+        let hours = Math.floor(time/(60*60))-days*24;
+        let minutes = Math.floor(time/60)-(days * 60 * 24 + hours * 60)
+        let seconds = Math.floor(time)- (days * 3600 * 24 + hours * 3600 + minutes * 60);
+        let stamp = (days != 0? days + (days != 1?" Tage ":" Tag "):"" )+ (hours != 0? hours + "h " : "" )+ (minutes != 0? minutes + "min ":"" )+ (seconds != 0? seconds + "sek":"");
         leaderboard.push(
           "<tr>\
           <td scope='row'>" +
             (i + 1) +
             '</td>\
           <td>' +
-            response.data.data.leaderboard[i].name +
+            name +
             '</td>\
           <td>' +
-            response.data.data.leaderboard[i].time 
-            + ' Sek.'+
+            stamp 
+            +
             '</td>\
         </tr>'
         );
@@ -129,12 +136,16 @@ app.get('/', function(req, res) {
         </tr>'
         );
       }
+      let leaderboardString = ""
+      for(let i = 0; i < leaderboard.length; i++){
+        leaderboardString += leaderboard[i];
+      }
       if (progress == null) {
         res.render('pages/index', {
           head_template: head,
           message: req.flash('message')[0],
           user: false,
-          leaderboard: leaderboard,
+          leaderboard: leaderboardString,
           justregistered: req.flash('justregistered')[0]
         });
       } else {
@@ -146,7 +157,7 @@ app.get('/', function(req, res) {
             progress,
             startTime
           },
-          leaderboard: leaderboard,
+          leaderboard: leaderboardString,
           justregistered: undefined
         });
       }
