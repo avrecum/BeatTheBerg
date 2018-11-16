@@ -202,8 +202,8 @@ app.get('/game', async function(req, res) {
 });
 
 // game page
-app.get('/leaderboard', function(req, res) {
-  res.render('pages/leaderboard', {
+app.get('/halloffame', function(req, res) {
+  res.render('pages/halloffame', {
     head_template: head
   });
 });
